@@ -1,0 +1,10 @@
+.content {
+    &--sud {
+        img {
+            height: 100vh;
+            &:first-child {
+                margin-left: calc(100vw - 68.86vh);
+            }
+        }
+    }
+}

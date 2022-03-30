@@ -1,0 +1,25 @@
+.thumbnails {
+    display: flex;
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    width: calc(100vw - 10px);
+    &__overview {
+        width: calc(80vw - 60px);
+        padding-right: 10px;
+        img {
+            height: 100px;
+            margin-bottom: 20px;
+            border: 0.5px solid transparent;
+            &:hover {
+                border: 0.5px solid black;
+            }
+        }
+    }
+    &__image {
+        position: fixed;
+        top: 100px;
+        right: 10px;
+        width: 20vw;
+    }
+}

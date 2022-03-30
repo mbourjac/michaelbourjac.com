@@ -1,0 +1,28 @@
+.content {
+    display: flex;
+    overflow-x: auto;
+    margin-top: 0px;
+    &__nav {
+        display: flex;
+        position: fixed;
+        left: 10px;
+        bottom: 10px;
+        width: calc(100vw - 20px); 
+        justify-content: space-between;
+        a {
+            text-decoration: none;
+        }
+        &--mobile {
+            display: none;
+            li {
+                cursor: pointer;
+            }
+        }
+        &--portrait {
+            display: none;
+            li {
+                cursor: pointer;
+            }
+        }
+    }
+}

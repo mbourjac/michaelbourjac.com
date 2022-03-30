@@ -1,0 +1,87 @@
+.content {
+    &--japon {
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        &--portrait {
+            display: none;
+            height: 100vh;
+            &__image {
+                position: fixed;
+            }
+            &__container {
+                position: fixed;
+                height: 100vh;
+                width: 100vw;
+                &--blank {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: white;
+                }
+                &--hidden {
+                    display: none;
+                    position: fixed;
+                }
+            }
+        }
+    }
+}
+
+.slide {
+    display: flex;
+    justify-content: center;
+    img {
+        height: 90vh;
+    }
+    &__layout {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        width: 63vh;
+    }
+    &__button {
+        flex-grow: 1;
+        height: 100vh;
+        &--prev {
+            cursor: w-resize;
+            display: flex;
+            justify-content: flex-end;
+        }
+        &--next {
+            cursor: e-resize;
+        }
+    }
+}
+
+.dragscroll {
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+    overflow: scroll;
+    overscroll-behavior: none;
+    cursor: grab;
+    &::-webkit-scrollbar {
+        display: none; 
+    }
+    img {
+        height: 200%;
+    }
+    &--small {
+        height: 42vh;
+        width: 36vh;
+    }
+    &--big {
+        height: 70vh;
+        width: 60vh;
+    }
+}
+
+.caption {
+    position: absolute;
+    right: 10px;
+    bottom: 65px;
+    font-size: 18px;
+    text-align: right;
+}
+
