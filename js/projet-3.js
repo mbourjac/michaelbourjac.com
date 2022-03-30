@@ -10,9 +10,9 @@ function pageLayout(element, number) {
     pageOfSlide.appendChild(containerOfPage);
 
     if (innerHeight < 500) {
-        imageOfContainer.src = "/img/japon/small/" + number + ".jpg";
+        imageOfContainer.src = `/img/japon/small/${number}.jpg`;
     } else if (innerHeight < 900) {
-        imageOfContainer.src = "/img/japon/medium/" + number + ".jpg";
+        imageOfContainer.src = `/img/japon/medium/${number}.jpg`;
     } else {
         if (smallDragscroll.includes(number)) {
             pageOfSlide.classList.add("slide__layout");
@@ -21,7 +21,7 @@ function pageLayout(element, number) {
             pageOfSlide.classList.add("slide__layout");
             containerOfPage.classList.add("dragscroll", "dragscroll--big");
         }
-        imageOfContainer.src = "/img/japon/" + number + ".jpg";
+        imageOfContainer.src = `/img/japon/${number}.jpg`;
     }
 
     element.appendChild(pageOfSlide);
@@ -31,16 +31,16 @@ function pageLayout(element, number) {
 for (let i = 1; i < 196; i++) {
     const slideDiv = document.createElement("div");
     slideDiv.classList.add("slide");
-    slideDiv.id = "slide-" + i;
+    slideDiv.id = `slide-${i}`;
 
     const previousSlide = document.createElement("a");
     previousSlide.classList.add("slide__button", "slide__button--prev");
-    previousSlide.id = "prev-" + i;
+    previousSlide.id = `prev-${i}`;
 
     if (i === 1) {
         previousSlide.href = "#slide-195";
     } else {
-        previousSlide.href = "#slide-" + (i - 1);
+        previousSlide.href = `#slide-${i - 1}`;
     }
     
     slideDiv.appendChild(previousSlide);
@@ -50,12 +50,12 @@ for (let i = 1; i < 196; i++) {
     
     const nextSlide = document.createElement("a");
     nextSlide.classList.add("slide__button", "slide__button--next");
-    nextSlide.id = "next-" + i;
+    nextSlide.id = `next-${i}`;
 
     if (i === 195) {
         nextSlide.href = "#slide-1";
     } else {
-        nextSlide.href = "#slide-" + (i + 1);
+        nextSlide.href = `#slide-${i + 1}`;
     }
 
     slideDiv.appendChild(nextSlide);
@@ -116,7 +116,7 @@ const mobileAnchorId = "mobile-content-nav-";
 function landscapeNav(array, selector, id) {
     for (let i = 0; i < array.length; i++) {
         const anchor = document.createElement("a");
-        anchor.href = "#slide-" + array[i][0];
+        anchor.href = `#slide-${array[i][0]}`;
         anchor.id = id + (i + 1);
         anchor.innerHTML = array[i][1];
 
@@ -182,20 +182,20 @@ function portraitLayout() {
 
         const img = document.createElement("img");
         if (innerWidth < 500) {
-            img.src = "/img/japon/portrait/small/" + i + ".jpg";
+            img.src = `/img/japon/portrait/small/${i}.jpg`;
         } else {
-            img.src = "/img/japon/portrait/" + i + ".jpg";
+            img.src = `/img/japon/portrait/${i}.jpg`;
         }
 
         const heightVw = imageWidth * imageRatio;
         const heightPx = (heightVw * innerWidth) / 100;
 
-        img.style.width = imageWidth + "vw";
+        img.style.width = `${imageWidth}vw`;
         img.style.left = Math.floor(Math.random() * (100 - imageWidth)) + "vw";
         img.style.top = Math.floor(Math.random() * (innerHeight - heightPx)) + "px";
 
         const div = document.createElement("div");
-        div.id = "portrait-content-" + i;
+        div.id = `portrait-content-${i}`;
         div.classList.add("content--japon--portrait__container");
 
         if (i === 1 || blank.includes(i)) {
@@ -215,8 +215,8 @@ function portraitLayout() {
 
 function portraitSwitch(start) {
     for (let i = start; i < 284; i++) {
-        document.querySelector("#portrait-content-" + i).addEventListener("click", function () {
-            document.querySelector("#portrait-content-" + (i + 1)).classList.remove("content--japon--portrait__container--hidden");
+        document.querySelector(`#portrait-content-${i}`).addEventListener("click", function () {
+            document.querySelector(`#portrait-content-${i + 1}`).classList.remove("content--japon--portrait__container--hidden");
         });
     }
 }
@@ -242,7 +242,7 @@ function portraitNavLayout(array) {
     for (let i = 0; i < array.length; i++) {
         const li = document.createElement("li");
         li.innerHTML = array[i][1];
-        li.id = "portrait-content-nav-" + i;
+        li.id = `portrait-content-nav-${i}`;
 
         document.querySelector(".content__nav--portrait").appendChild(li);
     }
@@ -253,14 +253,14 @@ portraitNavLayout(portraitNavData);
 
 function portraitNav(array, index) {
     for (let i = 1; i < 284; i++) {
-        document.querySelector("#portrait-content-" + i).classList.add("content--japon--portrait__container--hidden");
+        document.querySelector(`#portrait-content-${i}`).classList.add("content--japon--portrait__container--hidden");
     }
-    document.querySelector("#portrait-content-" + array[index][0]).classList.remove("content--japon--portrait__container--hidden");
+    document.querySelector(`#portrait-content-${array[index][0]}`).classList.remove("content--japon--portrait__container--hidden");
     portraitSwitch(array[index][0]);
 }
 
 for (let i = 0; i < portraitNavData.length; i++) {
-    document.querySelector("#portrait-content-nav-" + i).addEventListener("click", function() {
+    document.querySelector(`#portrait-content-nav-${i}`).addEventListener("click", function() {
         portraitNav(portraitNavData, i);
     });
 }
@@ -493,7 +493,7 @@ function moreFive() {
 
 
 for (let i = 1; i < 196; i++) {
-    document.getElementById("next-" + i).addEventListener("click", function () {
+    document.getElementById(`next-${i}`).addEventListener("click", function () {
         if (i === 195) {
             captionDiv.innerHTML = captions[0];
         } else if (i === 46) {
@@ -528,7 +528,7 @@ for (let i = 1; i < 196; i++) {
         } 
     });
 
-    document.getElementById("prev-" + i).addEventListener("click", function () {
+    document.getElementById(`prev-${i}`).addEventListener("click", function () {
         if (i === 1) {
             captionDiv.innerHTML = captions[captions.length - 1];
         } else if (i === 48) {
