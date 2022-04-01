@@ -133,14 +133,12 @@ landscapeNav(mobileNav, mobileContent, mobileAnchorId);
 
 const smallHalftone = [1, 12, 13, 15, 30, 46, 58, 72, 82, 86, 88, 92, 102, 106, 108, 121, 123, 132, 147, 153, 154, 155, 163, 169, 173, 175, 183, 205, 210, 213, 214, 225, 228, 229, 239, 245, 247, 249, 263, 264, 267, 271, 272, 277, 278, 281, 283];
 const bigHalftone = [4, 11, 14, 16, 49, 74, 85, 89, 95, 101, 109, 111, 137, 139, 142, 156, 176, 191, 203, 204, 209, 215, 221, 226, 227, 243, 248, 250, 254, 259, 265, 266, 269, 279, 282];
-const smallPortrait = [3, 6, 8, 9, 19, 20, 22, 23, 27, 32, 34, 36, 41, 48, 53, 65, 66, 69, 75, 79, 80, 87, 90, 94, 96, 98, 100, 110, 112, 113, 117, 120, 127, 129, 131, 134, 135, 136, 138, 143, 144, 150, 157, 158, 160, 161, 166, 167, 170, 172, 180, 181, 184, 185, 188, 190, 192, 194, 195, 196, 197, 200, 202, 208, 216, 217, 219, 220, 222, 231, 232, 234, 237, 244, 246, 255, 256, 257, 262, 268, 273, 275];
+const smallPortrait = [3, 6, 8, 9, 19, 20, 22, 23, 27, 32, 34, 36, 41, 48, 53, 65, 66, 69, 75, 79, 80, 87, 90, 94, 96, 98, 100, 110, 112, 113, 117, 120, 127, 129, 131, 134, 135, 136, 138, 143, 144, 150, 157, 158, 160, 161, 166, 167, 170, 172, 177, 178, 180, 181, 184, 185, 188, 190, 192, 194, 195, 196, 197, 200, 202, 208, 216, 217, 219, 220, 222, 231, 232, 234, 237, 241, 242, 244, 246, 255, 256, 257, 262, 268, 273, 275];
 const bigPortrait = [2, 5, 10, 18, 21, 26, 28, 33, 35, 42, 43, 45, 47, 51, 54, 57, 59, 67, 76, 77, 78, 81, 83, 84, 91, 93, 97, 103, 104, 105, 114, 115, 116, 122, 126, 128, 130, 133, 145, 148, 149, 152, 159, 164, 165, 168, 171, 174, 179, 182, 186, 187, 189, 198, 199, 201, 211, 218, 224, 230, 233, 238, 240, 252, 253, 258, 261, 270, 274, 276, 280];
-const smallLandscape = [38, 40, 52, 68, 124, 141, 260];
+const smallLandscape = [38, 40, 52, 68, 73, 124, 141, 260];
 const bigLandscape = [7, 17, 24, 29, 31, 37, 39, 44, 50, 55, 56, 60, 61, 71, 99, 107, 118, 119, 125, 140, 146, 151, 162, 193, 206, 207, 212, 223, 235, 236, 251];
-const twoThirds = [25, 70];
-const extraOne = [62, 63, 64];
-const extraTwo = [177, 178, 241, 242];
-const blank  = extraOne.concat(extraTwo, 73, 21, 32, 45, 84, 92, 104, 157, 208, 217, 231, 236).map(x => x - 1);
+const twoThirds = [25, 62, 63, 64, 70];
+const blank  = [21, 32, 45, 84, 92, 104, 157, 208, 217, 231, 236];
 
 function portraitLayout() {
     for (let i = 1; i < 284; i++) {
@@ -169,16 +167,7 @@ function portraitLayout() {
         } else if (twoThirds.includes(i)) {
             imageWidth = 67;
             imageRatio = 3 / 2;
-        } else if (extraOne.includes(i)) {
-            imageWidth = 80;
-            imageRatio = 3507 / 2362;
-        } else if (extraTwo.includes(i)) {
-            imageWidth = 80;
-            imageRatio = 1447 / 2362;
-        } else if (i == 73) {
-            imageWidth = 80;
-            imageRatio = 2891 / 2362;
-        }
+        } 
 
         const img = document.createElement("img");
         if (innerWidth < 500) {
@@ -208,8 +197,16 @@ function portraitLayout() {
             div.classList.add("content--japon--portrait__container--hidden");
         }
 
-        div.appendChild(img);
-        document.querySelector(".content--japon--portrait").appendChild(div);
+        if (i === 283) {
+            const anchor = document.createElement("a");
+            anchor.setAttribute("href", "./projet-3.html");
+            div.appendChild(img);
+            anchor.appendChild(div);
+            document.querySelector(".content--japon--portrait").appendChild(anchor);
+        } else {
+            div.appendChild(img);
+            document.querySelector(".content--japon--portrait").appendChild(div);
+        }
     }
 }
 
