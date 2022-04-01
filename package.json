@@ -1,7 +1,7 @@
 {
   "name": "website",
   "version": "1.0.0",
-  "description": "",
+  "description": "photography website",
   "main": "index.js",
   "scripts": {
     "build": "webpack"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/mbourjac/michaelbourjac.git"
   },
-  "author": "",
+  "author": "michael bourjac",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mbourjac/michaelbourjac/issues"

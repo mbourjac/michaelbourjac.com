@@ -13,24 +13,25 @@ module.exports = {
     projectthreeinfo: "./js/projet-3-info.js"
   },
   output: {
-    filename: "[name].[hash].bundle.js",
+    filename: "js/[name].[hash].bundle.js",
     path: path.resolve(__dirname, "dist")
   },
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ["**/*", "!main.min.css", "!dragscroll.js"]
+      cleanOnceBeforeBuildPatterns: ["**/*"]
     }),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "./src/template-index.html",
       chunks: [],
-      cache: true
+      cache: true,
     }),
     new HtmlWebpackPlugin({
       filename: "projet-1.html",
       template: "./src/template-1.html",
       chunks: ["projectone"],
-      cache: true
+      cache: true,
+      inject: "body"
     }),
     new HtmlWebpackPlugin({
       filename: "projet-1-info.html",
@@ -42,31 +43,36 @@ module.exports = {
       filename: "projet-1-random.html",
       template: "./src/template-1-random.html",
       chunks: ["projectonerandom"],
-      cache: true
+      cache: true,
+      inject: "body"
     }),
     new HtmlWebpackPlugin({
       filename: "projet-2.html",
       template: "./src/template-2.html",
       chunks: ["projecttwo"],
-      cache: true
+      cache: true,
+      inject: "body"
     }),
     new HtmlWebpackPlugin({
       filename: "projet-2-thumbnails.html",
       template: "./src/template-2-thumbnails.html",
       chunks: ["projecttwothumbnails"],
-      cache: true
+      cache: true,
+      inject: "body"
     }),
     new HtmlWebpackPlugin({
       filename: "projet-3.html",
       template: "./src/template-3.html",
       chunks: ["projectthree"],
-      cache: true
+      cache: true,
+      inject: "body"
     }),
     new HtmlWebpackPlugin({
       filename: "projet-3-info.html",
       template: "./src/template-3-info.html",
       chunks: ["projectthreeinfo"],
-      cache: true
+      cache: true,
+      inject: "body"
     }),
     new HtmlWebpackPlugin({
       filename: "projet-4.html",
