@@ -91,6 +91,11 @@ ul li {
   overflow-x: auto;
   margin-top: 0px;
 }
+.content--fixed {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
 .content__nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -302,6 +307,85 @@ ul li {
   text-align: right;
 }
 
+.content--scan__container {
+  height: 86vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.content--scan__image {
+  height: 70vh;
+}
+.content--scan__nav {
+  position: fixed;
+  top: 140px;
+  right: 10px;
+  text-align: right;
+}
+.content--scan__nav a {
+  color: rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+.content--scan__nav a:hover {
+  color: black;
+  text-decoration: line-through;
+}
+.content--scan__nav__off {
+  color: rgba(0, 0, 0, 0.2);
+}
+.content--scan__nav--desktop {
+  display: block;
+}
+.content--scan__nav--mobile {
+  display: none;
+  top: 100px;
+}
+@media screen and (max-width: 800px) {
+  .content--scan__nav--mobile {
+    top: 70px;
+  }
+}
+.content--scan__nav--mobile > li {
+  color: rgba(0, 0, 0, 0.3);
+  cursor: crosshair;
+}
+.content--scan__nav--mobile > li:hover {
+  color: black;
+}
+.content--scan__nav--mobile > li ul {
+  display: none;
+  padding-right: 20px;
+  color: rgba(0, 0, 0, 0.2);
+  cursor: default;
+}
+.content--scan__caption {
+  position: fixed;
+  left: 10px;
+  bottom: 15vh;
+  height: 48px;
+}
+.content--scan__footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  overflow-x: scroll;
+  height: 12vh;
+  width: 100vw;
+  padding-bottom: 10px;
+  opacity: 0.8;
+}
+.content--scan__footer:hover {
+  opacity: 1;
+}
+
 @media screen and (max-aspect-ratio: 10/8) {
   .slide img {
     height: 100%;
@@ -329,6 +413,19 @@ ul li {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+  }
+
+  .content--scan__image {
+    width: 100vw;
+    height: auto;
+  }
+
+  .content--scan__nav--desktop {
+    display: none;
+  }
+
+  .content--scan__nav--mobile {
+    display: block;
   }
 }
 @media screen and (max-width: 2000px) {
@@ -394,5 +491,14 @@ ul li {
 
   .content__nav--mobile {
     display: none;
+  }
+}
+@media screen and (max-height: 1025px) {
+  .content--scan__nav--desktop {
+    display: none;
+  }
+
+  .content--scan__nav--mobile {
+    display: block;
   }
 }

@@ -6,6 +6,7 @@
 @import "./pages/projet-1";
 @import "./pages/projet-2";
 @import "./pages/projet-3";
+@import "./pages/projet-4";
 
 @media screen and (max-aspect-ratio: 10 / 8) {
     .slide img {
@@ -33,6 +34,19 @@
 
     .content__nav--portrait {
         display: flex;
+    }
+
+    .content--scan__image {
+        width: 100vw;
+        height: auto;
+    }
+
+    .content--scan__nav--desktop {
+        display: none;
+    }
+
+    .content--scan__nav--mobile {
+        display: block;
     }
 }
 
@@ -98,5 +112,15 @@
     
     .content__nav--mobile {
         display: none;
+    }
+}
+
+@media screen and (max-height: 1025px) {
+    .content--scan__nav--desktop {
+        display: none;
+    }
+
+    .content--scan__nav--mobile {
+        display: block;
     }
 }
