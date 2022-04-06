@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: "production",
   entry: {
+    index: "./js/index.js",
     projectone: "./js/projet-1.js",
     projectonerandom: "./js/projet-1-random.js",
     projecttwo: "./js/projet-2.js",
@@ -24,7 +25,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "./src/template-index.html",
-      chunks: [],
+      chunks: ["index"],
       cache: true,
     }),
     new HtmlWebpackPlugin({

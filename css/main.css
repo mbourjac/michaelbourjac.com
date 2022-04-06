@@ -184,6 +184,30 @@ ul li {
   width: 20vw;
 }
 
+.content--index__image {
+  display: none;
+  position: fixed;
+}
+.content--index__image--1 {
+  height: 233vh;
+}
+.content--index__image--2 {
+  right: 0px;
+  height: 100vh;
+}
+.content--index__image--3 {
+  left: 50vw;
+  height: 90vh;
+}
+.content--index__image--4 {
+  top: 8vh;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  height: 70vh;
+}
+
 .content--paris {
   cursor: move;
 }
