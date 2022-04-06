@@ -24,57 +24,65 @@ function pageLayout(element, number) {
         imageOfContainer.src = `/img/japon/${number}.jpg`;
     }
 
+    if (number !== 1 && number !== 2) {
+        imageOfContainer.setAttribute("loading", "lazy");
+    }
+    
     element.appendChild(pageOfSlide);
 }
 
+function slideLayout() {
+    for (let i = 1; i < 196; i++) {
+        const slideDiv = document.createElement("div");
+        slideDiv.classList.add("slide");
+        slideDiv.id = `slide-${i}`;
 
-for (let i = 1; i < 196; i++) {
-    const slideDiv = document.createElement("div");
-    slideDiv.classList.add("slide");
-    slideDiv.id = `slide-${i}`;
+        const previousSlide = document.createElement("a");
+        previousSlide.classList.add("slide__button", "slide__button--prev");
+        previousSlide.id = `prev-${i}`;
 
-    const previousSlide = document.createElement("a");
-    previousSlide.classList.add("slide__button", "slide__button--prev");
-    previousSlide.id = `prev-${i}`;
+        if (i === 1) {
+            previousSlide.href = "#slide-195";
+        } else {
+            previousSlide.href = `#slide-${i - 1}`;
+        }
+        
+        slideDiv.appendChild(previousSlide);
 
-    if (i === 1) {
-        previousSlide.href = "#slide-195";
-    } else {
-        previousSlide.href = `#slide-${i - 1}`;
+        let j = (i * 2) - 1;
+        pageLayout(previousSlide, j);
+        
+        const nextSlide = document.createElement("a");
+        nextSlide.classList.add("slide__button", "slide__button--next");
+        nextSlide.id = `next-${i}`;
+
+        if (i === 195) {
+            nextSlide.href = "#slide-1";
+        } else {
+            nextSlide.href = `#slide-${i + 1}`;
+        }
+
+        slideDiv.appendChild(nextSlide);
+
+        let k = (i * 2);
+        pageLayout(nextSlide, k);
+
+        document.querySelector(".content--japon").appendChild(slideDiv);
     }
-    
-    slideDiv.appendChild(previousSlide);
 
-    let j = (i * 2) - 1;
-    pageLayout(previousSlide, j);
-    
-    const nextSlide = document.createElement("a");
-    nextSlide.classList.add("slide__button", "slide__button--next");
-    nextSlide.id = `next-${i}`;
+    const dragscrollImages = document.querySelectorAll(".dragscroll");
 
-    if (i === 195) {
-        nextSlide.href = "#slide-1";
-    } else {
-        nextSlide.href = `#slide-${i + 1}`;
+    for (let dragscrollImage of dragscrollImages) {
+        dragscrollImage.addEventListener("click", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        });
     }
-
-    slideDiv.appendChild(nextSlide);
-
-    let k = (i * 2);
-    pageLayout(nextSlide, k);
-
-    document.querySelector(".content--japon").appendChild(slideDiv);
 }
 
-const dragscrollImages = document.querySelectorAll(".dragscroll");
-
-for (let dragscrollImage of dragscrollImages) {
-    dragscrollImage.addEventListener("click", function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-    });
+if (innerHeight < innerWidth) {
+    slideLayout();
 }
-
 
 const desktopNav = [
     ["1", "7.15"],
@@ -170,6 +178,10 @@ function portraitLayout() {
         } 
 
         const img = document.createElement("img");
+        if (i !== 1) {
+            img.setAttribute("loading", "lazy");
+        }
+        
         if (innerWidth < 500) {
             img.src = `/img/japon/portrait/small/${i}.jpg`;
         } else {
@@ -218,8 +230,13 @@ function portraitSwitch(start) {
     }
 }
 
-portraitLayout();
-portraitSwitch(1);
+
+if (innerHeight > innerWidth) {
+    portraitLayout();
+    portraitSwitch(1);
+}
+
+
 
 
 const portraitNavData = [
