@@ -10,6 +10,9 @@ export function randomContentLayout(file, id, array, selector) {
             img.src = `/img/${file}/${item}.jpg`;
         }
         img.id = `${id}-${i}`;
+        if (i !== 1) {
+            img.setAttribute("loading", "lazy");
+        }
         i++;
         selector.appendChild(img);
     }
