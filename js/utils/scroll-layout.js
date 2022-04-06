@@ -9,6 +9,9 @@ export function contentLayout(file, array, selector) {
             img.src = `/img/${file}/${item}.jpg`;
         }
         img.id = `${file}-${item}`;
+        if (item !== 1) {
+            img.setAttribute("loading", "lazy");
+        }
         selector.appendChild(img);
     }
 }
