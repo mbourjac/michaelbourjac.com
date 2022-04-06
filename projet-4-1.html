@@ -77,7 +77,6 @@
                             <li><a href="#">naples - capri - paestum</a></li>
                         </ul>
                     </li>
-                    
                     <li>afrique du sud
                         <ul>
                             <li><a href="#">kraemer</a></li>
@@ -94,7 +93,6 @@
                             <li><a href="#">le caire - malte - arrivée à luxembourg</a></li>
                         </ul>
                     </li>
-                    
                     <li>japon
                         <ul>
                             <li><a href="#">sibérie - japon – hakone</a></li>
@@ -105,7 +103,6 @@
                             <li><a href="#">khabarovsk - moscou – berlin</a></li>
                         </ul>
                     </li>
-                    
                 </ul>
 
                 <div class="content--scan__caption">
@@ -120,28 +117,5 @@
             </div>
  
         </div>
-        <script>
-            const expandElements = [
-                ".content--scan__nav--mobile > li:nth-child(1) > ul",
-                ".content--scan__nav--mobile > li:nth-child(2) > ul",
-                ".content--scan__nav--mobile > li:nth-child(3) > ul"
-            ];
-
-            for (let i = 0; i < 3; i++) {
-                document.querySelector(".content--scan__nav--mobile > li:nth-child(" + (i + 1) + ")").addEventListener("click", function() {
-                    if (document.querySelector(expandElements[i]).style.display === "none") {
-                        const closeElements = expandElements.filter(item => item !== expandElements[i]);
-                        for (let element of closeElements) {
-                            document.querySelector(element).style.display = "none"
-                        }
-                        document.querySelector(expandElements[i]).style.display = "block";
-                    } else {
-                        document.querySelector(expandElements[i]).style.display = "none";
-                    }
-                });
-
-            }
-
-        </script>
     </body>
 </html>
