@@ -266,6 +266,7 @@ ul li {
 }
 .slide img {
   height: 90vh;
+  width: auto;
 }
 .slide__layout {
   display: -webkit-box;
