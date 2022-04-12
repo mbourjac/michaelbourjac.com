@@ -48,11 +48,11 @@ imageMapsLayout(footerImageInfo, footerImageVhHeight, imageCaptions);
 
 const expandElements = [];
 
-for (let i = 1; i < 4; i++) {
+for (let i = 1; i < 5; i++) {
     expandElements.push(".content--scan__nav--mobile > li:nth-child(" + i + ") > ul");
 }
 
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 4; i++) {
     document.querySelector(".content--scan__nav--mobile > li:nth-child(" + (i + 1) + ")").addEventListener("click", function() {
         const ulElement = document.querySelector(expandElements[i]);
 
