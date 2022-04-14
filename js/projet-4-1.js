@@ -1,40 +1,38 @@
-import { areaIndex, imageMapsLayout } from "./utils/dynamic-image-maps.js";
+import { projectFour } from "./projet-4.js";
 
 const footerImageInfo = [
     {
         number: 1,
-        height: 711,
-        width: 5074,
+        height: 684,
+        width: 5043,
         areas: [
-            [2905, 3633]
+            [2871, 3599]
         ]
     },
     {
         number: 2,
-        height: 711,
-        width: 4361,
+        height: 684,
+        width: 4359,
         areas: [
-            [727, 1454],
-            [2907, 3634]
+            [723, 1451],
+            [2904, 3633]
         ]
     },
     {
         number: 3,
-        height: 711,
-        width: 4360,
+        height: 684,
+        width: 4355,
         areas: [
-            [724, 1452],
-            [2180, 2911]
+            [724, 1453],
+            [2178, 2914]
         ]
     },
     {
         number: 4,
-        height: 711,
-        width: 5074,
+        height: 684,
+        width: 4999,
     },
 ];
-
-const footerImageVhHeight = 12;
 
 const imageCaptions = [
     "image 02. détail.",
@@ -44,26 +42,6 @@ const imageCaptions = [
     "image 14."
 ];
 
-imageMapsLayout(footerImageInfo, footerImageVhHeight, imageCaptions);
+const containerSelector = ".content--scan__nav--mobile";
 
-const expandElements = [];
-
-for (let i = 1; i < 5; i++) {
-    expandElements.push(".content--scan__nav--mobile > li:nth-child(" + i + ") > ul");
-}
-
-for (let i = 0; i < 4; i++) {
-    document.querySelector(".content--scan__nav--mobile > li:nth-child(" + (i + 1) + ")").addEventListener("click", function() {
-        const ulElement = document.querySelector(expandElements[i]);
-
-        if (ulElement.style.display === "none" || ulElement.style.display === "") {
-            const closeElements = expandElements.filter(item => item !== expandElements[i]);
-            for (let element of closeElements) {
-                document.querySelector(element).style.display = "none"
-            }
-            ulElement.style.display = "block";
-        } else {
-            ulElement.style.display = "none";
-        }
-    });
-}
+projectFour(footerImageInfo, imageCaptions, containerSelector);

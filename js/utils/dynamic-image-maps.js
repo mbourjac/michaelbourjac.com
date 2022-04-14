@@ -7,6 +7,11 @@ export function imageMapsLayout(object, height, array) {
         const footerImage = document.createElement("img");
         footerImage.src = `/img/scan/1/negatives/${object[i].number}.jpg`;
         footerImage.style.height = `${height}vh`;
+        if (i === 0) {
+            footerImage.style.paddingLeft = "10px";
+        } else if (i === object.length - 1) {
+            footerImage.style.paddingRight = "10px";
+        }
 
         if (object[i].hasOwnProperty("areas")) {
 
