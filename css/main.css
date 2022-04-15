@@ -346,6 +346,7 @@ ul li {
 }
 .content--scan__image {
   height: 70vh;
+  width: auto;
 }
 .content--scan__nav {
   position: fixed;
@@ -359,7 +360,7 @@ ul li {
 }
 .content--scan__nav a:hover {
   color: black;
-  text-decoration: line-through;
+  text-decoration: underline;
 }
 .content--scan__nav__off {
   color: rgba(0, 0, 0, 0.2);
@@ -443,6 +444,8 @@ ul li {
   .content--scan__image {
     width: 100vw;
     height: auto;
+    padding-left: 20vw;
+    padding-right: 20vw;
   }
 
   .content--scan__nav--desktop {

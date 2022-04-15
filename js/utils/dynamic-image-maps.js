@@ -1,63 +1,33 @@
 export let areaIndex = 1;
 
-export function imageMapsLayout(object, height, array) {
+export function dynamicImageMaps(image, index, dataArray, viewportHeight, selector) {
+    image.setAttribute("usemap", `#map-${index}`);
 
-    for (let i = 0; i < object.length; i++) {
+    const imageMap = document.createElement("map");
+    imageMap.setAttribute("name", `map-${index}`)
 
-        const footerImage = document.createElement("img");
-        footerImage.src = `/img/scan/1/negatives/${object[i].number}.jpg`;
-        footerImage.style.height = `${height}vh`;
-        if (i === 0) {
-            footerImage.style.paddingLeft = "10px";
-        } else if (i === object.length - 1) {
-            footerImage.style.paddingRight = "10px";
-        }
+    const imageInfo = dataArray.find(element => element.number === index);
 
-        if (object[i].hasOwnProperty("areas")) {
+    const coordinateArray = imageInfo.areas;
+    const imageRatio = imageInfo.width / dataArray[0].height;
+    const imageVhWidth = viewportHeight * imageRatio;
+    const imagePxWidth = (imageVhWidth * innerHeight) / 100;
 
-            footerImage.setAttribute("usemap", `#map-${object[i].number}`);
+    for (let j = 0; j < coordinateArray.length; j++) {
+        const leftCoordinateX = Math.floor((imagePxWidth * coordinateArray[j][0]) / imageInfo.width);
+        const rightCoordinateX = Math.floor((imagePxWidth * coordinateArray[j][1]) / imageInfo.width);
+        const imagePxHeight = (viewportHeight * innerHeight) / 100;
 
-            const imageMap = document.createElement("map");
-            imageMap.setAttribute("name", `map-${object[i].number}`)
+        const imageArea = document.createElement("area");
+        imageArea.setAttribute("shape", "rect");
+        imageArea.setAttribute("coords", `${leftCoordinateX}, 0, ${rightCoordinateX}, ${imagePxHeight}`);
+        imageArea.setAttribute("alt", "");
+        imageArea.setAttribute("href", "#");
+        imageArea.setAttribute("class", `area-${areaIndex}`)
+        areaIndex++;
 
-            const coordinateArray = object[i].areas;
-            const footerImageRatio = object[i].width / object[i].height;
-            const footerImageVhWidth = height * footerImageRatio;
-            const footerImagePxWidth = (footerImageVhWidth * innerHeight) / 100;
-
-            for (let j = 0; j < coordinateArray.length; j++) {
-                const leftCoordinateX = Math.floor((footerImagePxWidth * coordinateArray[j][0]) / object[i].width);
-                const rightCoordinateX = Math.floor((footerImagePxWidth * coordinateArray[j][1]) / object[i].width);
-                const footerImagePxHeight = (height * innerHeight) / 100;
-
-                const imageArea = document.createElement("area");
-                imageArea.setAttribute("shape", "rect");
-                imageArea.setAttribute("coords", `${leftCoordinateX}, 0, ${rightCoordinateX}, ${footerImagePxHeight}`);
-                imageArea.setAttribute("alt", "");
-                imageArea.setAttribute("href", "#");
-                imageArea.setAttribute("class", `area-${areaIndex}`)
-                areaIndex++;
-
-                imageMap.appendChild(imageArea);
-            }
-            document.querySelector(".content--scan__footer").appendChild(imageMap);
-        }
-        document.querySelector(".content--scan__footer").appendChild(footerImage);
+        imageMap.appendChild(imageArea);
     }
-
-    for (let i = 0; i < array.length; i ++) {
-        document.querySelector(`.area-${i + 1}`).addEventListener("click", function(e) {
-            e.preventDefault();
-
-            if (innerHeight < 500 || innerWidth < 500) {
-                document.querySelector(".content--scan__image").src = `/img/scan/1/small/${i + 1}.jpg`;
-            } else if (innerHeight < 900 || innerWidth < 1025) {
-                document.querySelector(".content--scan__image").src = `/img/scan/1/medium/${i + 1}.jpg`;
-            } else {
-                document.querySelector(".content--scan__image").src = `/img/scan/1/large/${i + 1}.jpg`;
-            }
-
-            document.querySelector(".content--scan__caption--current").textContent = array[i];
-        });
-    }
+    document.querySelector(selector).appendChild(imageMap);
 }
+

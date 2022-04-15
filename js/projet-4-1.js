@@ -1,9 +1,15 @@
 import { projectFour } from "./projet-4.js";
 
+const projectFile = "1";
+
 const footerImageInfo = [
     {
-        number: 1,
+        items: 4,
         height: 684,
+        maps: [1, 2, 3]
+    },
+    {
+        number: 1,
         width: 5043,
         areas: [
             [2871, 3599]
@@ -11,7 +17,6 @@ const footerImageInfo = [
     },
     {
         number: 2,
-        height: 684,
         width: 4359,
         areas: [
             [723, 1451],
@@ -20,18 +25,12 @@ const footerImageInfo = [
     },
     {
         number: 3,
-        height: 684,
         width: 4355,
         areas: [
             [724, 1453],
             [2178, 2914]
         ]
-    },
-    {
-        number: 4,
-        height: 684,
-        width: 4999,
-    },
+    }
 ];
 
 const imageCaptions = [
@@ -44,4 +43,4 @@ const imageCaptions = [
 
 const containerSelector = ".content--scan__nav--mobile";
 
-projectFour(footerImageInfo, imageCaptions, containerSelector);
+projectFour(projectFile, footerImageInfo, imageCaptions, containerSelector);

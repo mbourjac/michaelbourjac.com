@@ -8,6 +8,7 @@
         }
         &__image {
             height: 70vh;
+            width: auto;
         }
         &__nav {
             position: fixed;
@@ -19,7 +20,7 @@
                 text-decoration: none;
                 &:hover {
                     color: black;
-                    text-decoration: line-through;
+                    text-decoration: underline;
                 }
             }
             &__off {
