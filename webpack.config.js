@@ -13,7 +13,8 @@ module.exports = {
     projectthree: "./js/projet-3.js",
     projectthreeinfo: "./js/projet-3-info.js",
     projectfourone: "./js/projet-4-1.js",
-    projectfourtwo: "./js/projet-4-2.js"
+    projectfourtwo: "./js/projet-4-2.js",
+    projectfourthree: "./js/projet-4-3.js"
   },
   output: {
     filename: "js/[name].[hash].bundle.js",
@@ -89,6 +90,13 @@ module.exports = {
       filename: "projet-4-2.html",
       template: "./src/template-4-2.html",
       chunks: ["projectfourtwo"],
+      cache: true,
+      inject: "body"
+    }),
+    new HtmlWebpackPlugin({
+      filename: "projet-4-3.html",
+      template: "./src/template-4-3.html",
+      chunks: ["projectfourthree"],
       cache: true,
       inject: "body"
     })
