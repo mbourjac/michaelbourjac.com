@@ -1,7 +1,7 @@
 .content {
     &--scan {
         &__container {
-            height: 86vh;
+            height: 88vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -53,7 +53,7 @@
         &__caption {
             position: fixed;
             left: 10px;
-            bottom: 15vh;
+            bottom: 13vh;
             height: 48px;
         }
         &__footer {
@@ -61,7 +61,7 @@
             position: fixed;
             bottom: 0;
             overflow-x: scroll;
-            height: 12vh;
+            height: 10vh;
             width: 100vw;
             padding-bottom: 10px;
             opacity: 0.8;

@@ -47,7 +47,7 @@ export function projectFour(file, footerImageInfo, imageCaptions, containerSelec
         `/img/scan/${file}/medium/`,
         `/img/scan/${file}/large/`
     ];
-    const footerImageVhHeight = 12;
+    const footerImageVhHeight = 10;
     const menuItemsNumber = 4;
 
     footerLayout(footerImagePath, footerImageInfo, footerImageVhHeight);

@@ -333,7 +333,7 @@ ul li {
 }
 
 .content--scan__container {
-  height: 86vh;
+  height: 88vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -393,7 +393,7 @@ ul li {
 .content--scan__caption {
   position: fixed;
   left: 10px;
-  bottom: 15vh;
+  bottom: 13vh;
   height: 48px;
 }
 .content--scan__footer {
@@ -403,7 +403,7 @@ ul li {
   position: fixed;
   bottom: 0;
   overflow-x: scroll;
-  height: 12vh;
+  height: 10vh;
   width: 100vw;
   padding-bottom: 10px;
   opacity: 0.8;
