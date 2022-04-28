@@ -1,4 +1,4 @@
-export let areaIndex = 1;
+
 
 export function dynamicImageMaps(image, index, dataArray, viewportHeight, selector) {
     image.setAttribute("usemap", `#map-${index}`);
@@ -23,11 +23,20 @@ export function dynamicImageMaps(image, index, dataArray, viewportHeight, select
         imageArea.setAttribute("coords", `${leftCoordinateX}, 0, ${rightCoordinateX}, ${imagePxHeight}`);
         imageArea.setAttribute("alt", "");
         imageArea.setAttribute("href", "#");
-        imageArea.setAttribute("class", `area-${areaIndex}`)
-        areaIndex++;
+
 
         imageMap.appendChild(imageArea);
     }
+
+    
+
+
+
     document.querySelector(selector).appendChild(imageMap);
+
+    let areas = document.querySelectorAll("area");
+    for (let i = 0; i < areas.length; i++) {
+        areas[i].setAttribute("class", `area-${i + 1}`);
+    }
 }
 

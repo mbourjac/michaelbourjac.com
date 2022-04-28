@@ -15,16 +15,13 @@
             top: 140px;
             right: 10px;
             text-align: right;
-            a {
-                color: rgba(0,0,0,0.2);
-                text-decoration: none;
+            color: rgba(0,0,0,0.2);
+            &__on {
                 &:hover {
                     color: black;
                     text-decoration: underline;
+                    cursor: pointer;
                 }
-            }
-            &__off {
-                color: rgba(0,0,0,0.2);
             }
             &--desktop {
                 display: block;

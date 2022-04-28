@@ -353,17 +353,12 @@ ul li {
   top: 140px;
   right: 10px;
   text-align: right;
-}
-.content--scan__nav a {
   color: rgba(0, 0, 0, 0.2);
-  text-decoration: none;
 }
-.content--scan__nav a:hover {
+.content--scan__nav__on:hover {
   color: black;
   text-decoration: underline;
-}
-.content--scan__nav__off {
-  color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 .content--scan__nav--desktop {
   display: block;

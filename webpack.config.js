@@ -12,13 +12,7 @@ module.exports = {
     projecttwothumbnails: "./js/projet-2-thumbnails.js",
     projectthree: "./js/projet-3.js",
     projectthreeinfo: "./js/projet-3-info.js",
-    projectfourone: "./js/projet-4-1.js",
-    projectfourtwo: "./js/projet-4-2.js",
-    projectfourthree: "./js/projet-4-3.js",
-    projectfourfour: "./js/projet-4-4.js",
-    projectfourfive: "./js/projet-4-5.js",
-    projectfoursix: "./js/projet-4-6.js",
-    projectfourseven: "./js/projet-4-7.js"
+    projectfour: "./js/projet-4.js"
   },
   output: {
     filename: "js/[name].[hash].bundle.js",
@@ -84,51 +78,9 @@ module.exports = {
       inject: "body"
     }),
     new HtmlWebpackPlugin({
-      filename: "projet-4-1.html",
-      template: "./src/template-4-1.html",
-      chunks: ["projectfourone"],
-      cache: true,
-      inject: "body"
-    }),
-    new HtmlWebpackPlugin({
-      filename: "projet-4-2.html",
-      template: "./src/template-4-2.html",
-      chunks: ["projectfourtwo"],
-      cache: true,
-      inject: "body"
-    }),
-    new HtmlWebpackPlugin({
-      filename: "projet-4-3.html",
-      template: "./src/template-4-3.html",
-      chunks: ["projectfourthree"],
-      cache: true,
-      inject: "body"
-    }),
-    new HtmlWebpackPlugin({
-      filename: "projet-4-4.html",
-      template: "./src/template-4-4.html",
-      chunks: ["projectfourfour"],
-      cache: true,
-      inject: "body"
-    }),
-    new HtmlWebpackPlugin({
-      filename: "projet-4-5.html",
-      template: "./src/template-4-5.html",
-      chunks: ["projectfourfive"],
-      cache: true,
-      inject: "body"
-    }),
-    new HtmlWebpackPlugin({
-      filename: "projet-4-6.html",
-      template: "./src/template-4-6.html",
-      chunks: ["projectfoursix"],
-      cache: true,
-      inject: "body"
-    }),
-    new HtmlWebpackPlugin({
-      filename: "projet-4-7.html",
-      template: "./src/template-4-7.html",
-      chunks: ["projectfourseven"],
+      filename: "projet-4.html",
+      template: "./src/template-4.html",
+      chunks: ["projectfour"],
       cache: true,
       inject: "body"
     })
