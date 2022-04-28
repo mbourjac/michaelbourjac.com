@@ -512,6 +512,80 @@ const projectData = [
             "image 32.",
             "image 33."
         ]
+    },
+    {
+        file: "8",
+        title: "east london – durban – port – cannes à sucre",
+        images: "38",
+        footer: [
+            {
+                items: 7,
+                height: 704,
+                maps: [1, 2, 3, 4, 5, 6]
+            },
+            {
+                number: 1,
+                width: 4196,
+                areas: [
+                    [1298, 2018],
+                    [2742, 3468]
+                ]
+            },
+            {
+                number: 2,
+                width: 4345,
+                areas: [
+                    [1, 723],
+                    [724, 1451],
+                    [3624, 4345]
+                ]
+            },
+            {
+                number: 3,
+                width: 4334,
+                areas: [
+                    [1447, 2171],
+                    [2172, 2895],
+                    [2896, 3619]
+                ]
+            },
+            {
+                number: 4,
+                width: 4341,
+                areas: [
+                    [717, 1446]
+                ]
+            },
+            {
+                number: 5,
+                width: 4342,
+                areas: [
+                    [2174, 2896]
+                ]
+            },
+            {
+                number: 6,
+                width: 4357,
+                areas: [
+                    [1453, 2178],
+                    [2179, 2906]
+                ]
+            }
+        ],
+        captions: [
+            "image 01 — Orient Beach, East London, Afrique du Sud.",
+            "image 03 — Port, East London, Afrique du Sud.",
+            "image 05.",
+            "image 06.",
+            "image 10 — Boatmans Road, Durban, Afrique du Sud.",
+            "image 13 — Margaret Mncadi Avenue, Durban, Afrique du Sud.",
+            "image 14 — City Hall, Durban, Afrique du Sud.",
+            "image 15 — Florence Mkhize Building, Durban, Afrique du Sud.",
+            "image 18 — Bluff Whaling Station, Durban, Afrique du Sud.",
+            "image 26.",
+            "image 31.",
+            "image 32."
+        ]
     }
 ];
 
