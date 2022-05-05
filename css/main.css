@@ -376,6 +376,11 @@ ul li {
   color: rgba(0, 0, 0, 0.3);
   cursor: crosshair;
 }
+@media only screen and (hover: none) and (pointer: coarse) {
+  .content--scan__nav--mobile > li {
+    color: black;
+  }
+}
 .content--scan__nav--mobile > li:hover {
   color: black;
 }
@@ -384,6 +389,11 @@ ul li {
   padding-right: 20px;
   color: rgba(0, 0, 0, 0.2);
   cursor: default;
+}
+@media only screen and (hover: none) and (pointer: coarse) {
+  .content--scan__nav--mobile > li ul {
+    color: black;
+  }
 }
 .content--scan__caption {
   position: fixed;

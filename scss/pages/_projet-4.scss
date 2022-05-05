@@ -35,6 +35,9 @@
                 > li {
                     color: rgba(0,0,0,0.3);
                     cursor: crosshair;
+                    @media only screen and (hover: none) and (pointer: coarse) {
+                        color: black; 
+                    }
                     &:hover {
                         color: black;
                     }
@@ -43,6 +46,9 @@
                         padding-right: 20px;
                         color: rgba(0,0,0,0.2);
                         cursor: default;
+                        @media only screen and (hover: none) and (pointer: coarse) {
+                            color: black;
+                        }
                     }
                 }
             }
