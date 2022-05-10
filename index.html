@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>michaël bourjac</title>
         <link rel="stylesheet" href="/css/main.min.css">
-        <script src="/js/index.js" defer></script>
+        <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.png">
+        <script src="/js/index.js" type="module" defer></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
@@ -34,11 +35,16 @@
                         <li>&mdash;</li>
                         <li><a href="mailto:michael.bourjac@gmail.com">contact</a></li>
                     </ul>
-                    <ul class="nav__projects">
-                        <li><a href="./projet-1.html" id="nav-1">projet-1</a></li>
-                        <li><a href="./projet-2.html" id="nav-2">projet-2</a></li>
-                        <li><a href="./projet-3.html" id="nav-3">projet-3</a></li>
-                        <li><a href="./projet-4.html" id="nav-4">projet-4</a></li>   
+                    <ul class="nav__global">
+                        <li class="nav__global__section nav__global__section--projects nav__global__section--hidden" lang="en">projects</li>
+                        <li id="nav-1"><a href="./projet-1.html">projet-1</a></li>
+                        <li id="nav-2"><a href="./projet-2.html">projet-2</a></li>
+                        <li id="nav-3"><a href="./projet-3.html">projet-3</a></li>
+                        <li id="nav-4"><a href="./projet-4.html">projet-4</a></li>
+                        <li>&#183</li>
+                        <li class="nav__global__section nav__global__section--layouts" lang="en">layouts</li>
+                        <li id="layout-1" class="nav__global__section--hidden">layout-1</li>
+                        <li id="layout-2" class="nav__global__section--hidden"><a href="./index-2.html">layout-2</a></li>
                     </ul>
                 </nav>
  
@@ -54,6 +60,14 @@
 
             <div class="content--fixed content--index">
             </div>
+
+            <footer>
+                <ul>
+                    <li>&#183</li>
+                    <li>layout-1</li>
+                    <li><a href="./index-2.html">layout-2</a></li>
+                </ul>
+            </footer>
 
         </div>
     </body>

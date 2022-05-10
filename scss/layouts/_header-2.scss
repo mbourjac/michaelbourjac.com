@@ -4,6 +4,15 @@
     padding-left: 10px;
     padding-right: 10px;
     width: calc(100vw - 20px);
+    &__upper {
+        display: flex;
+        justify-content: space-between;
+        li {
+            font-size: 26px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+    }
     &__heading {
         font-size: 26px;
         font-weight: 100;
@@ -20,6 +29,32 @@
         display: flex;
         li {
             padding-right: 20px;
+            position: relative;
+            top: -20px;
+            font-size: calc(26px + 0.95vh);
+            color: rgba(0,0,0,0.3);
+            span {
+                visibility: hidden;
+            }
+            a {
+                color: rgba(0,0,0,0.3);
+                text-decoration: none;
+                &::after {
+                    content: ".";
+                    visibility: hidden;
+                }
+                &:hover {
+                    &::after {
+                        visibility: visible;
+                    }
+                }
+            } 
+            @media screen and (max-width: 500px) {
+                font-size: 26px;
+            }      
+        }
+        &--off {
+            text-decoration: line-through;
         }
     }
     &__global {
@@ -46,6 +81,7 @@
             margin-top: 30px;
             text-align: right;
             li {
+                font-size: 26px;
                 padding-bottom: 10px;
             }
         }

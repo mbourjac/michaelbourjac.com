@@ -1,5 +1,3 @@
-
-
 export function dynamicImageMaps(image, index, dataArray, viewportHeight, selector) {
     image.setAttribute("usemap", `#map-${index}`);
 
@@ -24,13 +22,8 @@ export function dynamicImageMaps(image, index, dataArray, viewportHeight, select
         imageArea.setAttribute("alt", "");
         imageArea.setAttribute("href", "#");
 
-
         imageMap.appendChild(imageArea);
     }
-
-    
-
-
 
     document.querySelector(selector).appendChild(imageMap);
 

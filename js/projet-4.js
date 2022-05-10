@@ -1,5 +1,11 @@
 import { dynamicImageMaps } from "./utils/dynamic-image-maps.js";
 import { expandableMenu } from "./utils/expandable-menu.js";
+import { toggleNav } from "./utils/toggle-nav.js";
+
+let path = window.location.pathname;
+let page = path.split("/").pop();
+
+toggleNav(false);
 
 function footerLayout(path, dataArray, viewportHeight) {
     for (let i = 1; i < dataArray[0].items + 1; i++) {
@@ -61,7 +67,9 @@ function projectFour(file, footerImageInfo, imageCaptions) {
 const containerSelector = ".content--scan__nav--mobile";
 const menuItemsNumber = 4;
 
-expandableMenu(containerSelector, menuItemsNumber);
+if (page === "projet-4.html") {
+    expandableMenu(containerSelector, menuItemsNumber);
+}
 
 const projectData = [
     {
@@ -373,9 +381,9 @@ const projectData = [
             ["image 17."],
             ["image 19."],
             ["image 25."],
-            ["image 32 — Cape Point, Péninsule du Cap, Afrique du Sud.", "image 32 — Péninsule du Cap, Afrique du Sud."],
-            ["image 35. détail — Cape Point, Péninsule du Cap, Afrique du Sud.", "image 35. détail — Péninsule du Cap, Afrique du Sud."],
-            ["image 39 — Main Road, Péninsule du Cap, Afrique du Sud.", "image 39 — Péninsule du Cap, Afrique du Sud."]
+            ["image 32 — Cape Point, Péninsule du Cap, Afrique du Sud.", "image 32 — Cape Point, Afrique du Sud."],
+            ["image 35. détail — Cape Point, Péninsule du Cap, Afrique du Sud.", "image 35. détail — Cape Point, Afrique du Sud."],
+            ["image 39 — Main Road, Péninsule du Cap, Afrique du Sud.", "image 39 — Cape Point, Afrique du Sud."]
         ]
     },
     {
@@ -1390,11 +1398,68 @@ for (let i = 0; i < projectData.length; i++) {
         pageReset(desktopNavSelector, i);
     });
 
-    document.querySelector(mobileNavSelector + (i + 1)).addEventListener("click", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        pageReset(mobileNavSelector, i);
-    });
+    if (page === "projet-4.html") {
+        document.querySelector(mobileNavSelector + (i + 1)).addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+    
+            pageReset(mobileNavSelector, i);
+        });
+    }
 }
 
+function altNav() {
+    const altMobileNav = [
+        "milan",
+        "naples",
+        "kraemer",
+        "sur le bateau",
+        "le cap",
+        "port elizabeth",
+        "east london",
+        "durban",
+        "ngomas danses",
+        "drakensberg",
+        "sur la route",
+        "kruger park",
+        "johannesburg",
+        "le caire",
+        "sibérie",
+        "kyoto",
+        "hiroshima",
+        "takamatsu",
+        "nikko",
+        "berlin"
+    ];
+
+    if (page === "projet-4-2.html") {
+        let i = 1;
+
+        document.querySelector(".content--scan__nav--mobile").addEventListener("click", function() {
+            if (i < 20) {
+                document.querySelector(".content--scan__nav--mobile").innerHTML = "next is " + altMobileNav[i] + ".";
+            } else if (i === 20) {
+                document.querySelector(".content--scan__nav--mobile").innerHTML = "back to bretagne.";
+            }
+            document.querySelector(".content--scan__footer").innerHTML = "";
+            document.querySelector(".content--scan__image").src = "";
+
+            document.querySelector(".content--scan__caption--folder").textContent = projectData[i].title;
+            document.querySelector(".content--scan__caption--current").textContent = projectData[i].images + " images.";
+
+            let projectFile = projectData[i].file;
+            let footerImageInfo = projectData[i].footer;
+            let imageCaptions = projectData[i].captions;
+
+            projectFour(projectFile, footerImageInfo, imageCaptions);
+
+            if (i < 20) {
+                i++;
+            } else if (i === 20) {
+                i = 0;
+            }
+        });
+    }
+}
+
+altNav();

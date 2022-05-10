@@ -1,5 +1,8 @@
 import { thumbnailsLayout } from "./utils/thumbnails-layout.js";
 import { switchImage, index } from "./utils/switch-dynamic-image.js";
+import { toggleNav } from "./utils/toggle-nav.js";
+
+toggleNav(false);
 
 function projectTwoThumbnails() {
     const contentFile = "sud";

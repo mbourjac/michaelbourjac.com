@@ -1,13 +1,13 @@
 @import "./base/base";
-@import "./layouts/header";
-@import "./layouts/content";
-@import "./layouts/info";
+@import "./layouts/header-2";
+@import "./layouts/content-2";
+@import "./layouts/info-2";
 @import "./layouts/thumbnails";
-@import "./pages/index";
+@import "./pages/index-2";
 @import "./pages/projet-1";
 @import "./pages/projet-2";
-@import "./pages/projet-3";
-@import "./pages/projet-4";
+@import "./pages/projet-3-2";
+@import "./pages/projet-4-2";
 
 @media screen and (max-aspect-ratio: 10 / 8) {
     .slide img {
@@ -16,7 +16,7 @@
     }    
 }
 
-@media screen and (orientation: portrait){
+@media screen and (orientation: portrait) {
     .content--japon {
         display: none;
     }
@@ -42,27 +42,6 @@
         height: auto;
         padding-left: 20vw;
         padding-right: 20vw;
-    }
-
-    .content--scan__nav--desktop {
-        display: none;
-    }
-
-    .content--scan__nav--mobile {
-        display: block;
-    }
-}
-
-@media screen and (max-width: 2000px) {
-    .info__container {
-        column-count: 2;
-    }
-}
-
-@media screen and (max-width: 1600px) {
-    .header__heading {
-        font-size: 24px;
-        margin-bottom: 8px;
     }
 }
 
@@ -93,11 +72,6 @@
         display: block;
     }
 
-    .header__heading {
-        font-size: 20px;
-        margin-bottom: 0px;
-    }
-
     ul li {
         font-size: 16px;
     }
@@ -115,15 +89,5 @@
     
     .content__nav--mobile {
         display: none;
-    }
-}
-
-@media screen and (max-height: 1025px) {
-    .content--scan__nav--desktop {
-        display: none;
-    }
-
-    .content--scan__nav--mobile {
-        display: block;
     }
 }

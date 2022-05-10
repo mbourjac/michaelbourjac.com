@@ -1,5 +1,8 @@
 import { contentLayout } from "./utils/scroll-layout.js";
 import { navLayout } from "./utils/nav-scroll-layout.js";
+import { toggleNav } from "./utils/toggle-nav.js";
+
+toggleNav(false);
 
 function projectOne() {
     const contentFile = "paris";

@@ -22,6 +22,19 @@
             height: 70vh;
         }
     }
+    &__caption {
+        font-size: 104px;
+        position: absolute;
+        right: 10px;
+        bottom: 15px;
+        text-align: right;
+        &--light {
+            font-size: 88px;
+            color: rgba(0,0,0,0.2);
+            position: relative;
+            top: -35px;
+        }
+    }
 }
 
 footer {
@@ -31,6 +44,7 @@ footer {
     ul {
         display: flex;
         li {
+            font-size: 1.625rem;
             padding-right: 20px;
         }
     }

@@ -79,10 +79,42 @@
 }
 
 .caption {
-    position: absolute;
-    right: 10px;
-    bottom: 65px;
-    font-size: 18px;
-    text-align: right;
+    &--one {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: fixed;
+        right: 0;
+        top: 0;
+        font-size: 13.85vw;
+        text-align: right;
+        color: rgba(0,0,0,0.8);
+        pointer-events: none;
+        height: 90vh;
+        width: 100vw;
+        line-height: 0.8;
+        span {
+            font-size: 4.82vw;
+            font-weight: 400;
+        }
+        @media screen and (orientation: portrait) {
+            display: none;
+        }
+    }
+    &--two {
+        position: fixed;
+        left: 10px;
+        bottom: calc(21px + 3.15vh);
+        font-size: calc(16px + 2.05vh);
+        color: rgba(0,0,0,0.2);
+        @media screen and (max-width: 1300px) {
+            display: none;
+        }
+    }
+    @media screen and (orientation: portrait) {
+        display: none;
+    }
 }
+
+
 

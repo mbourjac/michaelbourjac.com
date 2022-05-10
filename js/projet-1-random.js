@@ -1,5 +1,8 @@
 import { randomContentLayout } from "./utils/random-scroll-layout.js";
 import { randomNavLayout } from "./utils/random-nav-scroll-layout.js";
+import { toggleNav } from "./utils/toggle-nav.js";
+
+toggleNav(false);
 
 function projectOneRandom() {
     const contentFile = "paris";
