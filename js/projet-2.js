@@ -1,24 +1,22 @@
+import { disableRightClick } from "./utils/disable-right-click.js";
+import { projectsData } from "./utils/data.js";
 import { contentLayout } from "./utils/scroll-layout.js";
 import { navLayout } from "./utils/nav-scroll-layout.js";
-import { toggleNav } from "./utils/toggle-nav.js";
+import { createSpreads } from "./utils/spreads-layout.js";
 
-toggleNav(false);
+const projectData = projectsData[projectsData.length - 2];
 
-function projectTwo() {
-    const contentFile = "sud";
-    const contentImages = [];
-    for (let i = 1; i < 102; i ++) {
-        contentImages.push(i);
-    }
-    const contentSelector = document.querySelector(".content");
-    contentLayout(contentFile, contentImages, contentSelector);
+disableRightClick();
 
-    const navItems = [1];
-    for (let i = 10; i < 110; i += 10) {
-        navItems.push(i);
-    }
+function createContent() {
+    const contentSelector = document.querySelector(".content--projet-2");
     const navSelector = document.querySelector(".content__nav");
-    navLayout(contentFile, navItems, navSelector);
+
+    contentLayout(projectData.id, projectData.projectItems, contentSelector);
+    navLayout(projectData.id, projectData.projectItems, navSelector);
 }
 
-projectTwo();
+(function projectTwo() {
+    createContent();
+    createSpreads(projectData);
+})();

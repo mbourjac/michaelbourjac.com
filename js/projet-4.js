@@ -1,1465 +1,1942 @@
-import { dynamicImageMaps } from "./utils/dynamic-image-maps.js";
-import { expandableMenu } from "./utils/expandable-menu.js";
-import { toggleNav } from "./utils/toggle-nav.js";
+import { disableRightClick } from "./utils/disable-right-click.js";
+import { projectsData } from "./utils/data.js";
+import { responsiveLoading } from "./utils/responsive-loading.js";
+import { createSpreads } from "./utils/spreads-layout.js";
 
-let path = window.location.pathname;
-let page = path.split("/").pop();
+const projectData = projectsData[projectsData.length - 4];
 
-toggleNav(false);
+disableRightClick();
 
-function footerLayout(path, dataArray, viewportHeight) {
-    for (let i = 1; i < dataArray[0].items + 1; i++) {
-        const footerContainer = ".content--scan__footer";
-        const footerImage = document.createElement("img");
-        footerImage.src = `${path}${i}.jpg`;
-        footerImage.style.height = `${viewportHeight}vh`;
-
-        if (i === 1) {
-            footerImage.style.paddingLeft = "10px";
-        } else if (i === dataArray[0].items) {
-            footerImage.style.paddingRight = "10px";
-        }
-
-        if (dataArray[0].maps.includes(i)) {
-            dynamicImageMaps(footerImage, i, dataArray, viewportHeight, footerContainer);
-        }
-        document.querySelector(footerContainer).appendChild(footerImage);
-    }
-}
-
-function dynamicContent(array, path) {
-    for (let i = 0; i < array.length; i ++) {
-        document.querySelector(`.area-${i + 1}`).addEventListener("click", function(e) {
-            e.preventDefault();
-            const contentImage = document.querySelector(".content--scan__image");
-
-            if (innerHeight < 500 || innerWidth < 500) {
-                contentImage.src = `${path[0]}${i + 1}.jpg`;
-            } else if (innerHeight < 900 || innerWidth < 1025) {
-                contentImage.src = `${path[1]}${i + 1}.jpg`;
-            } else {
-                contentImage.src = `${path[2]}${i + 1}.jpg`;
-            }
-
-            if (innerWidth < 500 && array[i].length > 1) {
-                document.querySelector(".content--scan__caption--current").textContent = array[i][1];
-            } else {
-                document.querySelector(".content--scan__caption--current").textContent = array[i][0];
-            }
-
-        });
-    }
-}
-
-function projectFour(file, footerImageInfo, imageCaptions) {
-    const footerImagePath = `/img/scan/${file}/negatives/`;
-    const contentImagePath = [
-        `/img/scan/${file}/small/`,
-        `/img/scan/${file}/medium/`,
-        `/img/scan/${file}/large/`
+function createContent() {
+    const picturesData = [
+        [
+            {
+                number: "01",
+                title: [
+                    "Basilique Sainte-Anne d'Auray",
+                    "Sainte-Anne-d'Auray",
+                    "France",
+                ],
+                coordinates: "47.70395, -2.95495",
+            },
+            {
+                number: "02",
+                title: ["Bretagne", "France"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "06",
+                title: ["Bretagne", "France"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "09",
+                title: ["Bretagne", "France"],
+                pictures: 2,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "12",
+                title: ["Bretagne", "France"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "14",
+                title: ["Bretagne", "France"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: ["Dôme de Milan", "Piazza del Duomo", "Milan", "Italie"],
+                coordinates: "45.46442, 9.18996",
+            },
+            {
+                number: "04",
+                title: [
+                    "Cathédrale de Modène",
+                    "Via Sant'Eufemia",
+                    "Modène",
+                    "Italie",
+                ],
+                coordinates: "44.64654, 10.9248",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "05",
+                title: [
+                    "Palazzo d'Accursio et Palazzo del Podestà",
+                    "Piazza Maggiore",
+                    "Bologne",
+                    "Italie",
+                ],
+                coordinates: "44.49375, 11.34309",
+            },
+            {
+                number: "06",
+                title: [
+                    "Palazzo Re Enzo",
+                    "Piazza del Nettuno",
+                    "Bologne",
+                    "Italie",
+                ],
+                coordinates: "44.49421, 11.34254",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "07",
+                title: ["Ponte Vecchio", "Florence", "Italie"],
+                coordinates: "43.76803, 11.25458",
+            },
+            {
+                number: "10",
+                title: [
+                    "Porte Sud",
+                    "Baptistère Saint-Jean",
+                    "Piazza del Duomo",
+                    "Florence",
+                    "Italie",
+                ],
+                coordinates: "43.77298, 11.25504",
+            },
+            {
+                number: "11",
+                title: [
+                    "Porte du Paradis",
+                    "Baptistère Saint-Jean",
+                    "Piazza del Duomo",
+                    "Florence",
+                    "Italie",
+                ],
+                coordinates: "43.77313, 11.25526",
+            },
+            {
+                number: "12",
+                title: [
+                    "Santa Maria del Fiore",
+                    "Piazza del Duomo",
+                    "Florence",
+                    "Italie",
+                ],
+                coordinates: "43.7728, 11.25442",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "14",
+                title: [
+                    "Corridor de Vasari et Ponte alle Grazie",
+                    "Florence",
+                    "Italie",
+                ],
+                coordinates: "43.76817, 11.25329",
+            },
+            {
+                number: "15",
+                title: ["Florence", "Italie"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "16",
+                title: [
+                    "Campanile de Giotto",
+                    "Santa Maria del Fiore",
+                    "Piazza del Duomo",
+                    "Florence",
+                    "Italie",
+                ],
+                coordinates: "43.77315, 11.2569",
+            },
+            {
+                number: "17",
+                title: ["Palazzo Vecchio", "Florence", "Italie"],
+                coordinates: "43.77314, 11.25698",
+            },
+            {
+                number: "18",
+                title: [
+                    "Basilique San Lorenzo",
+                    "Piazza di San Lorenzo",
+                    "Florence",
+                    "Italie",
+                ],
+                coordinates: "43.77498, 11.2547",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "28",
+                title: [
+                    "Ile Minore et Ile Maggiore",
+                    "Lac Trasimène",
+                    "Italie",
+                ],
+                coordinates: "43.18826, 12.04625",
+            },
+            {
+                number: "29",
+                title: ["Assise", "Italie"],
+                coordinates: "43.07721, 12.59981",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "30",
+                title: ["Basilique Saint-François", "Assise", "Italie"],
+                coordinates: "43.07499, 12.60513",
+            },
+            {
+                number: "31",
+                title: ["Basilique Saint-François", "Assise", "Italie"],
+                coordinates: "43.07403, 12.60671",
+            },
+            {
+                number: "32",
+                title: [
+                    "Temple de Minerve",
+                    "Piazza del Comune",
+                    "Assise",
+                    "Italie",
+                ],
+                coordinates: "43.07106, 12.61484",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "37",
+                title: ["Assise", "Italie"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: [
+                    "Galate Capitolin",
+                    "Salle du Gladiateur",
+                    "Palais Neuf",
+                    "Rome",
+                    "Italie",
+                ],
+                coordinates: "41.89348, 12.48339",
+            },
+            {
+                number: "03",
+                title: ["Amour et Psyché", "Palais Neuf", "Rome", "Italie"],
+                coordinates: "41.89344, 12.48337",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "04",
+                title: [
+                    "Louve capitoline",
+                    "Palais des Conservateurs",
+                    "Rome",
+                    "Italie",
+                ],
+                coordinates: "41.89322, 12.48249",
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "06",
+                title: ["Marchés de Trajan", "Rome", "Italie"],
+                coordinates: "41.89526, 12.48587",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "08",
+                title: ["Porticciolo di Santa Lucia", "Naples", "italie"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "09",
+                title: [
+                    "Ristorante Transatlantico",
+                    "Porticciolo di Santa Lucia",
+                    "Naples",
+                    "Italie",
+                ],
+                coordinates: "40.82949, 14.24859",
+            },
+            {
+                number: "11",
+                title: ["Baie de Naples", "Italie"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "13",
+                title: ["Port", "Capri", "Italie"],
+                coordinates: "40.55653, 14.23898",
+            },
+            {
+                number: "16",
+                title: ["Villa San Michele", "Anacapri", "Capri", "Italie"],
+                coordinates: "40.5573, 14.2252",
+            },
+            {
+                number: "23",
+                title: ["Positano", "Italie"],
+                coordinates: "40.62756, 14.4876",
+            },
+            {
+                number: "25",
+                title: [
+                    "Apollon Archer",
+                    "Temple d'Apollon",
+                    "Pompéi",
+                    "Italie",
+                ],
+                coordinates: "40.74908, 14.48459",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "31",
+                title: ["Faune Dansant", "Maison du Faune", "Pompéi", "Italie"],
+                coordinates: "40.75108, 14.48462",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "32",
+                title: ["Temple de Neptune", "Paestum", "Italie"],
+                coordinates: "40.41991, 15.00507",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "33",
+                title: ["Temple de Neptune", "Paestum", "Italie"],
+                coordinates: "40.42009, 15.0046",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "34",
+                title: [
+                    "Temple de Neptune et Temple d'Héra",
+                    "Paestum",
+                    "Italie",
+                ],
+                coordinates: "40.41992, 15.00469",
+            },
+            {
+                number: "37",
+                title: ["Temple de Cérès", "Paestum", "Italie"],
+                coordinates: "40.42459, 15.00514",
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: ["Kraemer"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "03",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "05",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "06",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "07",
+                title: ["Kraemer"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "16",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "24",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "29",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "30",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "34",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "37",
+                title: ["Kraemer"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+        ],
+        [
+            {
+                number: "08",
+                title: ["Sur le bateau"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "10",
+                title: ["Sur le bateau"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "13",
+                title: ["Sur le bateau"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "14",
+                title: ["Sur le bateau"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "16",
+                title: ["Sur le bateau"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "17",
+                title: ["Sur le bateau"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "20",
+                title: ["Sur le bateau"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "25",
+                title: ["Sur le bateau"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "30",
+                title: [
+                    "Railway Station",
+                    "Adderley Street",
+                    "Le Cap",
+                    "Afrique du Sud",
+                ],
+                coordinates: "-33.92089, 18.42475",
+            },
+            {
+                number: "32",
+                title: ["Cape Point", "Péninsule du Cap", "Afrique du Sud"],
+                coordinates: "-34.35087, 18.48426",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "35",
+                title: ["Cape Point", "Péninsule du Cap", "Afrique du Sud"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "38",
+                title: ["Cape Point", "Péninsule du Cap", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "39",
+                title: ["Main Road", "Péninsule du Cap", "Afrique du Sud"],
+                coordinates: "-34.181703, 18.359782",
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "03",
+                title: ["Le Cap", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "05",
+                title: [
+                    "Statue de Jan van Riebeeck",
+                    "Heerengracht Street",
+                    "Le Cap",
+                    "Afrique du Sud",
+                ],
+                coordinates: "-33.91931, 18.42603",
+            },
+            {
+                number: "06",
+                title: ["Heerengracht Street", "Le Cap", "Afrique du Sud"],
+                coordinates: "-33.91702, 18.42776",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "07",
+                title: ["Heerengracht Street", "Le Cap", "Afrique du Sud"],
+                coordinates: "-33.91702, 18.42776",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "09",
+                title: [
+                    "Mostert's Mill",
+                    "Mowbray",
+                    "Le Cap",
+                    "Afrique du Sud",
+                ],
+                coordinates: "-33.95215, 18.46634",
+            },
+            {
+                number: "11",
+                title: [
+                    "Rhodes Memorial",
+                    "Devil's Peak",
+                    "Le Cap",
+                    "Afrique du Sud",
+                ],
+                coordinates: "-33.95129, 18.46294",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "16",
+                title: ["Adderley Street", "Le Cap", "Afrique du Sud"],
+                coordinates: "-33.92464, 18.4205",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "17",
+                title: [
+                    "Standard Bank",
+                    "Adderley Street",
+                    "Le Cap",
+                    "Afrique du Sud",
+                ],
+                coordinates: "-33.92348, 18.42152",
+            },
+            {
+                number: "19",
+                title: ["Saunders Rock's Beach", "Le Cap", "Afrique du Sud"],
+                coordinates: "-33.92453, 18.37706",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "21",
+                title: [
+                    "Sea Point Pavilion Swimming Pool",
+                    "Le Cap",
+                    "Afrique du Sud",
+                ],
+                coordinates: "-33.91857, 18.38476",
+            },
+            {
+                number: "30",
+                title: ["Montagne de la Table", "Le Cap", "Afrique du Sud"],
+                coordinates: "-33.95916, 18.40547",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "31",
+                title: ["Montagne de la Table", "Le Cap", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "32",
+                title: ["Montagne de la Table", "Le Cap", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "38",
+                title: ["Montagne de la Table", "Le Cap", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: ["Port", "Le Cap", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "07",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "22",
+                title: ["Port", "Port Elizabeth", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "26",
+                title: [
+                    "The Union's Snake Park",
+                    "Port Elizabeth",
+                    "Afrique du Sud",
+                ],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "27",
+                title: ["Horse Memorial", "Port Elizabeth", "Afrique du Sud"],
+                coordinates: "-33.96215, 25.60881",
+            },
+            {
+                number: "28",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "29",
+                title: ["Port", "Port Elizabeth", "Afrique du Sud"],
+                coordinates: "-33.95849, 25.63247",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "30",
+                title: ["Main Library", "Port Elizabeth", "Afrique du Sud"],
+                coordinates: "-33.962, 25.62337",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "33",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "34",
+                title: ["Langholm Farm", "Bathurst", "South Africa"],
+            },
+            {
+                number: "39",
+                title: ["Port", "East London", "Afrique du Sud"],
+                coordinates: "-33.02401, 27.90855",
+            },
+        ],
+        [
+            {
+                number: "01",
+                title: ["Orient Beach", "East London", "Afrique du Sud"],
+                coordinates: "-33.02395, 27.91492",
+            },
+            {
+                number: "03",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "05",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "07",
+                title: ["Juma Masjid Mosque", "Durban", "Afrique du Sud"],
+                coordinates: "-29.85672, 31.01731",
+            },
+            {
+                number: "09",
+                title: ["Denis Hurey Street", "Durban", "Afrique du Sud"],
+                coordinates: "-29.85669, 31.01733",
+            },
+            {
+                number: "10",
+                title: ["Boatmans Road", "Durban", "Afrique du Sud"],
+                coordinates: "-29.86523, 31.01732",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "11",
+                title: ["Port", "Durban", "Afrique du Sud"],
+                coordinates: "-29.86391, 31.02235",
+            },
+            {
+                number: "13",
+                title: ["Margaret Mncadi Avenue", "Durban", "Afrique du Sud"],
+                coordinates: "-29.86134, 31.02391",
+            },
+            {
+                number: "14",
+                title: ["City Hall", "Durban", "Afrique du Sud"],
+                coordinates: "-29.85863, 31.0256",
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "15",
+                title: ["Florence Mkhize Building", "Durban", "Afrique du Sud"],
+                coordinates: "-29.85906, 31.02582",
+            },
+            {
+                number: "19",
+                title: ["Bluff Whaling Station", "Durban", "Afrique du Sud"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "31",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "32",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "34",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: ["Bertha Mkhize Street", "Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "04",
+                title: ["Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "06",
+                title: ["Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "07",
+                title: ["Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "12",
+                title: ["Car Park", "Durban", "Afrique du Sud"],
+                coordinates: "-29.85741, 31.01976",
+            },
+            {
+                number: "18",
+                title: ["Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "22",
+                title: ["Cato Manor Hindu Temple", "Durban", "Afrique du Sud"],
+                coordinates: "-29.86603, 30.964",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "29",
+                title: [
+                    "Village Zoulou",
+                    "Vallée des Mille Collines",
+                    "Afrique du Sud",
+                ],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "31",
+                title: [
+                    "Village Zoulou",
+                    "Vallée des Mille Collines",
+                    "Afrique du Sud",
+                ],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "32",
+                title: [
+                    "Village Zoulou",
+                    "Vallée des Mille Collines",
+                    "Afrique du Sud",
+                ],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "36",
+                title: [
+                    "Village Zoulou",
+                    "Vallée des Mille Collines",
+                    "Afrique du Sud",
+                ],
+                pictures: 1,
+                orientation: "portrait",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: ["Kingsmead", "Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "11",
+                title: ["Kingsmead", "Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "17",
+                title: ["Kingsmead", "Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "18",
+                title: ["Kingsmead", "Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "19",
+                title: ["Post Office", "Durban", "Afrique du Sud"],
+                coordinates: "-29.85831, 31.02525",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "20",
+                title: ["Samara Machel Street", "Durban", "Afrique du Sud"],
+                coordinates: "-29.86009, 31.02846",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "21",
+                title: ["Durban", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "23",
+                title: ["West Street", "Durban", "Afrique du Sud"],
+                coordinates: "-29.85829, 31.02477",
+            },
+            {
+                number: "24",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "26",
+                title: ["Howick Falls", "Howick", "Afrique du Sud"],
+                coordinates: "-29.48609, 30.23868",
+            },
+            {
+                number: "29",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "31",
+                title: ["Amphithéâtre", "Drakensberg", "Afrique du Sud"],
+                coordinates: "-28.69607, 28.9555",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "32",
+                title: ["Amphithéâtre", "Drakensberg", "Afrique du Sud"],
+                coordinates: "-28.69607, 28.9555",
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "25",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "28",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "29",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "30",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "34",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "37",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "38",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "04",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "05",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "10",
+                title: ["Kruger National Park", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "18",
+                title: ["Kruger National Park", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "23",
+                title: ["Kruger National Park", "Afrique du Sud"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "24",
+                title: ["Kruger National Park", "Afrique du Sud"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "25",
+                title: ["Kruger National Park", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "33",
+                title: ["Kruger National Park", "Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "19",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "27",
+                title: [
+                    "Jardin Louis Botha",
+                    "Union Buildings",
+                    "Pretoria",
+                    "Afrique du Sud",
+                ],
+                coordinates: "-25.74226, 28.21135",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "28",
+                title: ["Voortrekker Monumen", "Pretoria", "Afrique du Sud"],
+                coordinates: "-25.77562, 28.17583",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "33",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "34",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "35",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "36",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "37",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "38",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+        ],
+        [
+            {
+                number: "05",
+                title: ["Afrique du Sud"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "12",
+                title: ["Anstey's Building", "Johannesburg", "Afrique du Sud"],
+                coordinates: "-26.20179, 28.04241",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "14",
+                title: ["Anstey's Building", "Johannesburg", "Afrique du Sud"],
+                coordinates: "-26.20179, 28.04241",
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "18",
+                title: "",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "19",
+                title: ["Entebbe", "Ouganda"],
+                coordinates: "0.04359, 32.44179",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "25",
+                title: ["Aéroport", "Khartoum", "Soudan"],
+                coordinates: "15.59276, 32.55223",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "31",
+                title: ["Gizeh", "Egypte"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "35",
+                title: ["Sphinx de Gizeh", "Gizeh", "Egypte"],
+                coordinates: "29.97507, 31.13789",
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: ["Sphinx de Gizeh", "Gizeh", "Egypte"],
+                coordinates: "29.97489, 31.13867",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "03",
+                title: ["Sphinx de Gizeh", "Gizeh", "Egypte"],
+                coordinates: "29.97489, 31.13867",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "04",
+                title: ["Pont Qasr al-Nil", "Le Caire", "Egypte"],
+                coordinates: "30.04374, 31.22946",
+            },
+            {
+                number: "05",
+                title: ["Mosquée Omar Makram", "Le Caire", "Égypte"],
+                coordinates: "30.04319, 31.23394",
+            },
+            {
+                number: "07",
+                title: ["Le Caire", "Egypte"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "09",
+                title: ["Ibrahim Al Lakani Street", "Le Caire", "Egypte"],
+                coordinates: "30.08913, 31.32082",
+            },
+            {
+                number: "10",
+                title: ["Palais d'el-Orouba", "Le Caire", "Egypte"],
+                coordinates: "30.08897, 31.32075",
+            },
+            {
+                number: "11",
+                title: ["Baghdad Street", "El-Korba", "Le Caire", "Egypte"],
+                coordinates: "30.08872, 31.32143",
+            },
+            {
+                number: "13",
+                title: "",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "18",
+                title: ["Pjazza tas-Sur", "Mdina", "Malte"],
+                coordinates: "35.88745, 14.40295",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "19",
+                title: ["Mdina Gate", "Mdina", "Malte"],
+                coordinates: "35.88454, 14.40331",
+            },
+            {
+                number: "20",
+                title: [
+                    "Co-cathédrale Saint-Jean de La Valette",
+                    "La Valette",
+                    "Malte",
+                ],
+                coordinates: "35.89728, 14.51223",
+            },
+            {
+                number: "28",
+                title: "",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "33",
+                title: "",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "36",
+                title: "",
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: ["Sibérie", "Russie"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "05",
+                title: ["Sibérie", "Russie"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "06",
+                title: ["Sibérie", "Russie"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "12",
+                title: "",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "16",
+                title: ["Kamakura Daibutsu", "Kōtoku-in", "Kamakura", "Japon"],
+                coordinates: "35.3166, 139.53567",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "17",
+                title: ["Nio-mon Gate", "Kōtoku-in", "Kamakura", "Japon"],
+                coordinates: "35.3158, 139.53534",
+            },
+            {
+                number: "18",
+                title: ["Kamakura", "Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "20",
+                title: ["Japon"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: [
+                    "Téléphérique Hakone Komagatake",
+                    "Ōwakudani",
+                    "Hakone",
+                    "Japon",
+                ],
+                coordinates: "35.24394, 139.01842",
+            },
+            {
+                number: "03",
+                title: ["Onsen", "Ōwakudani", "Hakone", "Japon"],
+                coordinates: "35.24004, 139.01886",
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "07",
+                title: ["Japon"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "13",
+                title: ["Japon"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "17",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "22",
+                title: ["Kinkaku-ji", "Kyoto", "Japon"],
+                coordinates: "35.03948, 135.72871",
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "26",
+                title: ["Jardin de pierres", "Ryōan-ji", "Kyoto", "Japon"],
+                coordinates: "35.03445, 135.7183",
+            },
+            {
+                number: "27",
+                title: ["Palais Ninomaru", "Château de Nijō", "Kyoto", "Japon"],
+                coordinates: "35.01289, 135.75044",
+            },
+            {
+                number: "29",
+                title: ["Ōtenmon", "Heian-jingū", "Kyoto", "Japon"],
+                coordinates: "35.01524, 135.78225",
+            },
+            {
+                number: "30",
+                title: ["Sōryūrō", "Heian-jingū", "Kyoto", "Japon"],
+                coordinates: "35.01599, 135.78253",
+            },
+            {
+                number: "31",
+                title: ["Heian-jingū", "Kyoto", "Japon"],
+                coordinates: "35.01706, 135.78324",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "33",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "34",
+                title: ["Chū-mon", "Tōdai-ji", "Nara", "Japon"],
+                coordinates: "34.68747, 135.83984",
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "35",
+                title: ["Daibutsu-den", "Tōdai-ji", "Nara", "Japon"],
+                coordinates: "34.68829, 135.83982",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "38",
+                title: ["Shōrō", "Tōdai-ji", "Nara", "Japon"],
+                coordinates: "34.68878, 135.84193",
+            },
+        ],
+        [
+            {
+                number: "01",
+                title: ["Nara", "Japon"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "03",
+                title: ["Naishimon Gate", "Kasuga-taisha", "Nara", "Japon"],
+                coordinates: "34.68161, 135.84775",
+            },
+            {
+                number: "06",
+                title: ["Gojū-no-tō", "Kōfuku-ji", "Nara", "Japon"],
+                coordinates: "34.68255, 135.83172",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "07",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "12",
+                title: ["Hyakutai Jizo-Do", "Kiyomizu-dera", "Kyoto", "Japon"],
+                coordinates: "34.99483, 135.78571",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "15",
+                title: ["Komainu", "Kiyomizu-dera", "Kyoto", "Japon"],
+                coordinates: "34.99546, 135.78316",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "19",
+                title: ["Kyoto", "Japon"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "21",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "22",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "26",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "27",
+                title: ["Dôme de Genbaku", "Hiroshima", "Japon"],
+                coordinates: "34.39595, 132.45244",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "29",
+                title: [
+                    "Cénotaphe",
+                    "Parc du Mémorial de la Paix",
+                    "Hiroshima",
+                    "Japon",
+                ],
+                coordinates: "34.39462, 132.4519",
+            },
+            {
+                number: "30",
+                title: ["Hiroshima", "Japon"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "33",
+                title: ["Torii", "Itsukushima-jinja", "Itsukushima", "Japon"],
+                coordinates: "34.29723, 132.31894",
+            },
+            {
+                number: "34",
+                title: [
+                    "Masugata",
+                    "Itsukushima-jinja",
+                    "Itsukushima",
+                    "Japon",
+                ],
+                coordinates: "34.29617, 132.32019",
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "01",
+                title: ["Japon"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "04",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "05",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "06",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "07",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "08",
+                title: ["Ritsurin-kōen", "Takamatsu", "Japon"],
+                coordinates: "34.3293, 134.04369",
+            },
+            {
+                number: "15",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "16",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "19",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "22",
+                title: ["Chutes de Kegon", "Parc national de Nikkō", "Japon"],
+                coordinates: "36.73826, 139.50359",
+                pictures: 1,
+                orientation: "portrait",
+            },
+        ],
+        [
+            {
+                number: "02",
+                title: ["Gojūnotō", "Tōshō-gū", "Nikkō", "Japon"],
+                coordinates: "36.75648, 139.59939",
+            },
+            {
+                number: "03",
+                title: ["Kamijinko", "Tōshō-gū", "Nikkō", "Japon"],
+                coordinates: "36.75707, 139.59924",
+            },
+            {
+                number: "04",
+                title: ["Sanzaru", "Shinkyusha", "Tōshō-gū", "Nikkō", "Japon"],
+                coordinates: "36.75712, 139.59905",
+            },
+            {
+                number: "05",
+                title: ["Kamijinko", "Tōshō-gū", "Nikkō", "Japon"],
+                coordinates: "36.75722, 139.59903",
+            },
+            {
+                number: "06",
+                title: ["Omizuya", "Tōshō-gū", "Nikkō", "Japon"],
+                coordinates: "36.75731, 139.5988",
+            },
+            {
+                number: "07",
+                title: ["Kairo", "Tōshō-gū", "Nikkō", "Japon"],
+                coordinates: "36.75766, 139.59872",
+            },
+            {
+                number: "09",
+                title: ["Yomeimon Gate", "Tōshō-gū", "Nikkō", "Japon"],
+                coordinates: "36.7578, 139.59872",
+            },
+            {
+                number: "10",
+                title: ["Nemuri-neko", "Tōshō-gū", "Nikkō", "Japon"],
+                coordinates: "36.7578, 139.59918",
+            },
+            {
+                number: "13",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "15",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "16",
+                title: ["Japon"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "19",
+                title: ["Japon"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "21",
+                title: ["Japon"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "22",
+                title: "",
+                pictures: 1,
+                orientation: "landscape",
+            },
+        ],
+        [
+            {
+                number: "03",
+                title: ["Port", "Nakhodka", "Russie"],
+                coordinates: "42.80896, 132.88431",
+            },
+            {
+                number: "06",
+                title: ["Russie"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "07",
+                title: ["Russie"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "08",
+                title: ["Muravyov Amursky Park", "Khabarovsk", "Russie"],
+                coordinates: "48.48348, 135.04677",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "10",
+                title: ["Khabarovsk", "Russie"],
+                coordinates: "48.48233, 135.04913",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "11",
+                title: ["Khabarovsk", "Russie"],
+                pictures: 1,
+                detail: true,
+                orientation: "portrait",
+            },
+            {
+                number: "13",
+                title: ["Ivanovskaya Square", "Kremlin", "Moscou", "Russie"],
+                coordinates: "55.75119, 37.61926",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "14",
+                title: [
+                    "Cathédrale de la Dormition",
+                    "Kremlin",
+                    "Moscou",
+                    "Russie",
+                ],
+                coordinates: "55.7513, 37.61799",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "15",
+                title: ["Tsar Pouchka", "Kremlin", "Moscou", "Russie"],
+                coordinates: "55.75146, 37.618",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "16",
+                title: ["Kremlin", "Moscou", "Russie"],
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "17",
+                title: [
+                    "Palais du Patriarche et Cathédrale de la Dormition",
+                    "Kremlin",
+                    "Moscou",
+                    "Russie",
+                ],
+                coordinates: "55.7519, 37.6165",
+            },
+            {
+                number: "18",
+                title: ["Théâtre Bolchoï", "Moscou", "Russie"],
+                coordinates: "55.75856, 37.6196",
+            },
+            {
+                number: "19",
+                title: ["Musée historique d'État", "Moscou", "Russie"],
+                coordinates: "55.75671, 37.61418",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "20",
+                title: [
+                    "Église de l'Ascension",
+                    "Kolomenskoye",
+                    "Moscou",
+                    "Russie",
+                ],
+                coordinates: "55.66762, 37.66934",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "22",
+                title: [
+                    "Tsar's Courtyard Front Gate",
+                    "Kolomenskoye",
+                    "Moscou",
+                    "Russie",
+                ],
+                coordinates: "55.66753, 37.66996",
+            },
+            {
+                number: "23",
+                title: [
+                    "Gate Tower of Saint Nicholas Monastery Korelskogo",
+                    "Kolomenskoye",
+                    "Moscou",
+                    "Russie",
+                ],
+                coordinates: "55.67396, 37.67766",
+            },
+            {
+                number: "25",
+                title: [
+                    "Cabane de Pierre Ier le Grand",
+                    "Kolomenskoye",
+                    "Moscou",
+                    "Russie",
+                ],
+                coordinates: "55.66739, 37.66705",
+            },
+            {
+                number: "27",
+                title: [
+                    "Church of the Kazan Icon of the Mother of God",
+                    "Kolomenskoye",
+                    "Moscou",
+                    "Russie",
+                ],
+                coordinates: "55.6688, 37.66716",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "30",
+                title: [
+                    "Church of the Beheading of John the Baptist in Dyakovo",
+                    "Kolomenskoye",
+                    "Moscou",
+                    "Russie",
+                ],
+                coordinates: "55.66522, 37.6687",
+            },
+            {
+                number: "33",
+                title: ["Philarmonie", "Berlin", "Allemagne"],
+                coordinates: "52.51069, 13.37427",
+            },
+            {
+                number: "35",
+                title: ["Konzerthaus", "Gendarmenmark", "Berlin", "Allemagne"],
+                coordinates: "52.51338, 13.39266",
+                pictures: 1,
+                orientation: "landscape",
+            },
+            {
+                number: "36",
+                title: [
+                    "Französischer Dom",
+                    "Gendarmenmark",
+                    "Berlin",
+                    "Allemagne",
+                ],
+                coordinates: "52.51402, 13.3933",
+                pictures: 1,
+                orientation: "portrait",
+            },
+            {
+                number: "38",
+                title: [
+                    "Porte de Brandebourg",
+                    "Pariser Platz",
+                    "Berlin",
+                    "Allemagne",
+                ],
+                coordinates: "52.51641, 13.37968",
+            },
+        ],
     ];
-    const footerImageVhHeight = 10;
-    
-    footerLayout(footerImagePath, footerImageInfo, footerImageVhHeight);
-    dynamicContent(imageCaptions, contentImagePath);
-}
-
-const containerSelector = ".content--scan__nav--mobile";
-const menuItemsNumber = 4;
-
-if (page === "projet-4.html") {
-    expandableMenu(containerSelector, menuItemsNumber);
-}
-
-const projectData = [
-    {
-        file: "1",
-        title: "bretagne – départ italie (1957)",
-        images: "22",
-        footer: [
-            {
-                items: 4,
-                height: 684,
-                maps: [1, 2, 3]
-            },
-            {
-                number: 1,
-                width: 5043,
-                areas: [
-                    [2871, 3599]
-                ]
-            },
-            {
-                number: 2,
-                width: 4359,
-                areas: [
-                    [723, 1451],
-                    [2904, 3633]
-                ]
-            },
-            {
-                number: 3,
-                width: 4355,
-                areas: [
-                    [724, 1453],
-                    [2178, 2914]
-                ]
-            }
-        ],
-        captions: [
-            ["image 02. détail — Bretagne, France."],
-            ["image 06 — Bretagne, France."],
-            ["image 09. détail — Bretagne, France."],
-            ["image 12 — Bretagne, France."],
-            ["image 14 — Bretagne, France."]
-        ]
-    },
-    {
-        file: "2",
-        title: "milan – florence",
-        images: "37",
-        footer: [
-            {
-                items: 7,
-                height: 687,
-                maps: [2, 3, 4, 6, 7]
-            },
-            {
-                number: 2,
-                width: 4349,
-                areas: [
-                    [1, 722],
-                    [1448, 2174]
-                ]
-            },
-            {
-                number: 3,
-                width: 4346,
-                areas: [
-                    [1450, 2174],
-                    [2175, 2899],
-                    [3626, 4346]
-                ]
-            },
-            {
-                number: 4,
-                width: 4358,
-                areas: [
-                    [1452, 2179],
-                    [2906, 3634]
-                ]
-            },
-            {
-                number: 6,
-                width: 4356,
-                areas: [
-                    [722, 1449],
-                    [2899, 3633]
-                ]
-            },
-            {
-                number: 7,
-                width: 3584,
-                areas: [
-                    [721, 1447],
-                    [2172, 2897]
-                ]
-            }
-        ],
-        captions: [
-            ["image 04 — Cathédrale de Modène, Modène, Italie.", "image 04 — Modène, Italie."],
-            ["image 06 — Piazza del Nettuno, Bologne, Italie.", "image 06 — Bologne, Italie."],
-            ["image 12 — Piazza del Duomo, Florence, Italie.", "image 12 — Florence, Italie."],
-            ["image 13 — Piazza del Duomo, Florence, Italie.", "image 13 — Florence, Italie."],
-            ["image 15 — Florence, Italie."],
-            ["image 18 — Piazza di San Lorenzo, Florence, Italie.", "image 18 — Florence, Italie."],
-            ["image 20. détail — Italie."],
-            ["image 29 — Assise, Italie."],
-            ["image 32 — Piazza del Comune, Assise, Italie.", "image 32 — Assise, Italie."],
-            ["image 35 — Assise, Italie."],
-            ["image 37 — Assise, Italie."]
-        ]
-    },
-    {
-        file: "3",
-        title: "naples – capri – paestum",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 688,
-                maps: [1, 2, 5, 6, 7]
-            },
-            {
-                number: 1,
-                width: 4350,
-                areas: [
-                    [2900, 3626],
-                    [3627, 4350]
-                ]
-            },
-            {
-                number: 2,
-                width: 4345,
-                areas: [
-                    [729, 1457],
-                    [2175, 2899],
-                    [3625, 4345]
-                ]
-            },
-            {
-                number: 5,
-                width: 4351,
-                areas: [
-                    [1444, 2169]
-                ]
-            },
-            {
-                number: 6,
-                width: 4348,
-                areas: [
-                    [1444, 2174],
-                    [2175, 2902],
-                    [2903, 3628]
-                ]
-            },
-            {
-                number: 7,
-                width: 3447,
-                areas: [
-                    [1442, 2173]
-                ]
-            }
-        ],
-        captions: [
-            ["image 03 — Amour et Psyché, Salle du Gladiateur, Palais Neuf, Rome, Italie.", "image 03 — Rome, Italie."],
-            ["image 04. détail — Louve capitoline, Salle de la Louve, Palais des Conservateurs, Rome, Italie.", "image 04. détail — Rome, Italie."],
-            ["image 06 — Marchés de Trajan, Rome, Italie.", "image 06 — Rome, Italie."],
-            ["image 08 — Porticciolo di Santa Lucia, Naples, italie.", "image 08 — Naples, italie."],
-            ["image 10. détail — Baie de Naples, Italie."],
-            ["image 25 — Apollon Archer, Temple d'Apollon, Pompéi, Italie.", "image 25 — Pompéi, Italie."],
-            ["image 31 — Faune Dansant, Maison du Faune, Pompéi, Italie.", "image 31 — Pompéi, Italie."],
-            ["image 32 — Temple de Neptune, Paestum, Italie.", "image 32 — Paestum, Italie."],
-            ["image 33 — Temple de Neptune, Paestum, Italie.", "image 33 — Paestum, Italie."],
-            ["image 37 — Temple de Cérès, Paestum, Italie.", "image 37 — Paestum, Italie."]
-        ]
-    },
-    {
-        file: "4",
-        title: "kraemer",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 687,
-                maps: [1, 2, 4, 5, 6, 7]
-            },
-            {
-                number: 1,
-                width: 4565,
-                areas: [
-                    [3111, 3837],
-                    [3838, 4565]
-                ]
-            },
-            {
-                number: 2,
-                width: 4346,
-                areas: [
-                    [725, 1449],
-                    [1450, 2173]
-                ]
-            },
-            {
-                number: 4,
-                width: 4354,
-                areas: [
-                    [1, 724]
-                ]
-            },
-            {
-                number: 5,
-                width: 4347,
-                areas: [
-                    [1442, 2173]
-                ]
-            },
-            {
-                number: 6,
-                width: 4346,
-                areas: [
-                    [724, 1444],
-                    [1445, 2173]
-                ]
-            },
-            {
-                number: 7,
-                width: 4108,
-                areas: [
-                    [1, 727],
-                    [2178, 2904]
-                ]
-            }
-        ],
-        captions: [
-            ["image 02."],
-            ["image 03."],
-            ["image 05."],
-            ["image 06."],
-            ["image 16."],
-            ["image 24."],
-            ["image 29."],
-            ["image 30."],
-            ["image 34."],
-            ["image 37."]
-        ]
-    },
-    {
-        file: "5",
-        title: "sur le bateau",
-        images: "39",
-        footer: [
-            {
-                items: 7,
-                height: 695,
-                maps: [2, 3, 4, 5, 6, 7]
-            },
-            {
-                number: 2,
-                width: 4362,
-                areas: [
-                    [2902, 3635]
-                ]
-            },
-            {
-                number: 3,
-                width: 4361,
-                areas: [
-                    [1, 723],
-                    [2180, 2903],
-                    [2904, 3632]
-                ]
-            },
-            {
-                number: 4,
-                width: 4397,
-                areas: [
-                    [1, 729],
-                    [730, 1463],
-                    [2199, 2934]
-                ]
-            },
-            {
-                number: 5,
-                width: 4375,
-                areas: [
-                    [2190, 2918]
-                ]
-            },
-            {
-                number: 6,
-                width: 4400,
-                areas: [
-                    [2938, 3669]
-                ]
-            },
-            {
-                number: 7,
-                width: 4449,
-                areas: [
-                    [734, 1476],
-                    [3685, 4429]
-                ]
-            }
-        ],
-        captions: [
-            ["image 08."],
-            ["image 10."],
-            ["image 13."],
-            ["image 14."],
-            ["image 16."],
-            ["image 17."],
-            ["image 19."],
-            ["image 25."],
-            ["image 32 — Cape Point, Péninsule du Cap, Afrique du Sud.", "image 32 — Cape Point, Afrique du Sud."],
-            ["image 35. détail — Cape Point, Péninsule du Cap, Afrique du Sud.", "image 35. détail — Cape Point, Afrique du Sud."],
-            ["image 39 — Main Road, Péninsule du Cap, Afrique du Sud.", "image 39 — Cape Point, Afrique du Sud."]
-        ]
-    },
-    {
-        file: "6",
-        title: "le cap",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 684,
-                maps: [2, 3, 4, 5, 6, 7]
-            },
-            {
-                number: 2,
-                width: 4341,
-                areas: [
-                    [1, 723],
-                    [2170, 2894],
-                    [2895, 3620]
-                ]
-            },
-            {
-                number: 3,
-                width: 4351,
-                areas: [
-                    [1452, 2176]
-                ]
-            },
-            {
-                number: 4,
-                width: 4339,
-                areas: [
-                    [732, 1452],
-                    [2897, 3618]
-                ]
-            },
-            {
-                number: 5,
-                width: 4338,
-                areas: [
-                    [2172, 2897]
-                ]
-            },
-            {
-                number: 6,
-                width: 4339,
-                areas: [
-                    [2169, 2896]
-                ]
-            },
-            {
-                number: 7,
-                width: 4499,
-                areas: [
-                    [3604, 4327]
-                ]
-            }
-        ],
-        captions: [
-            ["image 03 — Le Cap, Afrique du Sud."],
-            ["image 06 — Heerengracht Street, Le Cap, Afrique du Sud.", "image 06 — Le Cap, Afrique du Sud."],
-            ["image 07 — Heerengracht Street, Le Cap, Afrique du Sud.", "image 07 — Le Cap, Afrique du Sud."],
-            ["image 11 — Rhodes Memorial, Devil's Peak, Le Cap, Afrique du Sud.", "image 11 — Le Cap, Afrique du Sud."],
-            ["image 16 — Adderley Street, Le Cap, Afrique du Sud.", "image 16 — Le Cap, Afrique du Sud."],
-            ["image 19 — Saunders Rock's Beach, Le Cap, Afrique du Sud.", "image 19 — Le Cap, Afrique du Sud."],
-            ["images 24 & 25 — Montagne de la Table, Le Cap, Afrique du Sud.", "images 24 & 25 — Le Cap, Afrique du Sud."],
-            ["images 30 & 31 — Montagne de la Table, Le Cap, Afrique du Sud.", "images 30 & 31 — Le Cap, Afrique du Sud."],
-            ["image 38 — Montagne de la Table, Le Cap, Afrique du Sud.", "image 38 — Le Cap, Afrique du Sud."]
-        ]
-    },
-    {
-        file: "7",
-        title: "port elizabeth – east london",
-        images: "39",
-        footer: [
-            {
-                items: 7,
-                height: 691,
-                maps: [1, 2, 4, 5, 6]
-            },
-            {
-                number: 1,
-                width: 3454,
-                areas: [
-                    [573, 1291]
-                ]
-            },
-            {
-                number: 2,
-                width: 4337,
-                areas: [
-                    [723, 1441]
-                ]
-            },
-            {
-                number: 4,
-                width: 4359,
-                areas: [
-                    [2909, 3633]
-                ]
-            },
-            {
-                number: 5,
-                width: 4354,
-                areas: [
-                    [1446, 2170],
-                    [2908, 3632],
-                    [3633, 4353]
-                ]
-            },
-            {
-                number: 6,
-                width: 4358,
-                areas: [
-                    [1, 726],
-                    [1454, 2184],
-                    [2185, 2908]
-                ]
-            }
-        ],
-        captions: [
-            ["image 02 — Port, Le Cap, Afrique du Sud.", "image 02 — Le Cap, Afrique du Sud."],
-            ["image 07 — Afrique du Sud."],
-            ["image 22 — Port, Port Elizabeth, Afrique du Sud.", "image 22 — Port Elizabeth, Afrique du Sud."],
-            ["image 26 — The Union's Snake Park, Port Elizabeth, Afrique du Sud.", "image 26 — Port Elizabeth, Afrique du Sud."],
-            ["image 28 — Afrique du Sud."],
-            ["image 29 — Port, Port Elizabeth, Afrique du Sud.", "image 29 — Port Elizabeth, Afrique du Sud."],
-            ["image 30 — Main Library, Port Elizabeth, Afrique du Sud.", "image 30 — Port Elizabeth, Afrique du Sud."],
-            ["image 32 — Afrique du Sud."],
-            ["image 33 — Afrique du Sud."]
-        ]
-    },
-    {
-        file: "8",
-        title: "east london – durban – port – cannes à sucre",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 704,
-                maps: [1, 2, 3, 4, 5, 6]
-            },
-            {
-                number: 1,
-                width: 4196,
-                areas: [
-                    [2742, 3468]
-                ]
-            },
-            {
-                number: 2,
-                width: 4345,
-                areas: [
-                    [1, 723],
-                    [3624, 4345]
-                ]
-            },
-            {
-                number: 3,
-                width: 4334,
-                areas: [
-                    [2172, 2895],
-                    [2896, 3619]
-                ]
-            },
-            {
-                number: 4,
-                width: 4341,
-                areas: [
-                    [1446, 2168]
-                ]
-            },
-            {
-                number: 5,
-                width: 4342,
-                areas: [
-                    [2174, 2896]
-                ]
-            },
-            {
-                number: 6,
-                width: 4357,
-                areas: [
-                    [1453, 2178],
-                    [2179, 2906]
-                ]
-            }
-        ],
-        captions: [
-            ["image 03 — East London, Afrique du Sud."],
-            ["image 05 — Afrique du Sud."],
-            ["image 10 — Boatmans Road, Durban, Afrique du Sud.", "image 10 — Durban, Afrique du Sud."],
-            ["image 14 — City Hall, Durban, Afrique du Sud.", "image 14 — Durban, Afrique du Sud."],
-            ["image 15. détail — Florence Mkhize Building, Durban, Afrique du Sud.", "image 15. détail — Durban, Afrique du Sud."],
-            ["image 19. détail — Bluff Whaling Station, Durban, Afrique du Sud.", "image 19. détail — Durban, Afrique du Sud."],
-            ["image 26 — Afrique du Sud."],
-            ["image 31 — Afrique du Sud."],
-            ["image 32 — Afrique du Sud."]
-        ]
-    },
-    {
-        file: "9",
-        title: "durban – marche indigène",
-        images: "36",
-        footer: [
-            {
-                items: 7,
-                height: 697,
-                maps: [1, 2, 4, 6, 7]
-            },
-            {
-                number: 1,
-                width: 4808,
-                areas: [
-                    [2639, 3357],
-                    [4079, 4808]
-                ]
-            },
-            {
-                number: 2,
-                width: 4354,
-                areas: [
-                    [723, 1447],
-                    [1448, 2177]
-                ]
-            },
-            {
-                number: 4,
-                width: 4349,
-                areas: [
-                    [731, 1454],
-                    [3623, 4349]
-                ]
-            },
-            {
-                number: 6,
-                width: 4361,
-                areas: [
-                    [1, 725],
-                    [1452, 2183],
-                    [2184, 2909]
-                ]
-            },
-            {
-                number: 7,
-                width: 2084,
-                areas: [
-                    [724, 1442]
-                ]
-            }
-        ],
-        captions: [
-            ["image 02 — Bertha Mkhize Street, Durban, Afrique du Sud.", "image 02 — Durban, Afrique du Sud."],
-            ["image 04 — Durban, Afrique du Sud."],
-            ["image 06 — Durban, Afrique du Sud."],
-            ["image 07 — Durban, Afrique du Sud."],
-            ["image 18 — Durban, Afrique du Sud."],
-            ["image 22 — Temple Hindou, Cato Manor, Durban, Afrique du Sud.", "image 22 — Durban, Afrique du Sud."],
-            ["image 29 — Village Zoulou, Vallée des Mille Collines, Afrique du Sud.", "image 29 — Village Zoulou, Afrique du Sud."],
-            ["image 31 — Village Zoulou, Vallée des Mille Collines, Afrique du Sud.", "image 31 — Village Zoulou, Afrique du Sud."],
-            ["image 32 — Village Zoulou, Vallée des Mille Collines, Afrique du Sud.", "image 32 — Village Zoulou, Afrique du Sud."],
-            ["image 36 — Village Zoulou, Vallée des Mille Collines, Afrique du Sud.", "image 36 — Village Zoulou, Afrique du Sud."]
-        ]
-    },
-    {
-        file: "10",
-        title: "ngomas danses",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 691,
-                maps: [1, 2, 3, 4, 5, 6]
-            },
-            {
-                number: 1,
-                width: 4738,
-                areas: [
-                    [1844, 2669]
-                ]
-            },
-            {
-                number: 2,
-                width: 4345,
-                areas: [
-                    [3619, 4345]
-                ]
-            },
-            {
-                number: 3,
-                width: 4351,
-                areas: [
-                    [3626, 4351]
-                ]
-            },
-            {
-                number: 4,
-                width: 4358,
-                areas: [
-                    [1, 721],
-                    [722, 1449],
-                    [1450, 2174],
-                    [2175, 2898]
-                ]
-            },
-            {
-                number: 5,
-                width: 4350,
-                areas: [
-                    [1, 721],
-                    [1444, 2164],
-                    [3621, 4350]
-                ]
-            },
-            {
-                number: 6,
-                width: 4350,
-                areas: [
-                    [722, 1444]
-                ]
-            }
-        ],
-        captions: [
-            ["image 02 — Kingsmead, Durban, Afrique du Sud.", "image 02 — Durban, Afrique du Sud."],
-            ["image 11 — Kingsmead, Durban, Afrique du Sud.", "image 11 — Durban, Afrique du Sud."],
-            ["image 17 — Kingsmead, Durban, Afrique du Sud.", "image 17 — Durban, Afrique du Sud."],
-            ["image 18 — Kingsmead, Durban, Afrique du Sud.", "image 18 — Durban, Afrique du Sud."],
-            ["image 19 — Post Office, Durban, Afrique du Sud.", "image 19 — Durban, Afrique du Sud."],
-            ["image 20 — Samara Machel Street, Durban, Afrique du Sud.", "image 20 — Durban, Afrique du Sud."],
-            ["image 21 — Durban, Afrique du Sud."],
-            ["image 24 — Afrique du Sud."],
-            ["image 26 — Howick Falls, Howick, Afrique du Sud.", "image 26 — Howick, Afrique du Sud."],
-            ["image 29 — Afrique du Sud."],
-            ["images 31 & 32 — Amphithéâtre, Drakensberg, Afrique du Sud.", "images 31 & 32 — Drakensberg, Afrique du Sud."]
-        ]
-    },
-    {
-        file: "11",
-        title: "drakensberg",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 692,
-                maps: [5, 6, 7]
-            },
-            {
-                number: 5,
-                width: 4344,
-                areas: [
-                    [728, 1450],
-                    [2897, 3623],
-                    [3624, 4344]
-                ]
-            },
-            {
-                number: 6,
-                width: 4350,
-                areas: [
-                    [1, 724],
-                    [2897, 3621]
-                ]
-            },
-            {
-                number: 7,
-                width: 2312,
-                areas: [
-                    [724, 1449],
-                    [1450, 2167]
-                ]
-            }
-        ],
-        captions: [
-            ["image 25 — Afrique du Sud."],
-            ["image 28 — Afrique du Sud."],
-            ["image 29 — Afrique du Sud."],
-            ["image 30 — Afrique du Sud."],
-            ["image 34 — Afrique du Sud."],
-            ["image 37 — Afrique du Sud."],
-            ["image 38 — Afrique du Sud."]
-        ]
-    },
-    {
-        file: "12",
-        title: "sur la route du kruger park",
-        images: "39",
-        footer: [
-            {
-                items: 7,
-                height: 684,
-                maps: [1, 2, 4, 5, 6]
-            },
-            {
-                number: 1,
-                width: 4654,
-                areas: [
-                    [3203, 3930],
-                    [3931, 4654]
-                ]
-            },
-            {
-                number: 2,
-                width: 4345,
-                areas: [
-                    [2894, 3616]
-                ]
-            },
-            {
-                number: 4,
-                width: 4324,
-                areas: [
-                    [1, 728],
-                    [2883, 3603]
-                ]
-            },
-            {
-                number: 5,
-                width: 4316,
-                areas: [
-                    [1, 719],
-                    [720, 1439]
-                ]
-            },
-            {
-                number: 6,
-                width: 4316,
-                areas: [
-                    [2160, 2877]
-                ]
-            }
-        ],
-        captions: [
-            ["image 04 — Afrique du Sud."],
-            ["image 05 — Afrique du Sud."],
-            ["image 10 — Kruger National Park, Afrique du Sud.", "image 10 — Afrique du Sud."],
-            ["image 18 — Kruger National Park, Afrique du Sud.", "image 18 — Afrique du Sud."],
-            ["image 22. détail — Kruger National Park, Afrique du Sud.", "image 22. détail — Afrique du Sud."],
-            ["image 24. détail — Kruger National Park, Afrique du Sud.", "image 24. détail — Afrique du Sud."],
-            ["image 25 — Kruger National Park, Afrique du Sud.", "image 25 — Afrique du Sud."],
-            ["image 33 — Kruger National Park, Afrique du Sud.", "image 33 — Afrique du Sud."]
-        ]
-    },
-    {
-        file: "13",
-        title: "kruger park – retour – danses des mines",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 686,
-                maps: [4, 5, 6, 7]
-            },
-            {
-                number: 4,
-                width: 4354,
-                areas: [
-                    [725, 1451]
-                ]
-            },
-            {
-                number: 5,
-                width: 4362,
-                areas: [
-                    [2180, 2908],
-                    [2909, 3636]
-                ]
-            },
-            {
-                number: 6,
-                width: 4366,
-                areas: [
-                    [2184, 2915],
-                    [2916, 3641],
-                    [3642, 4366]
-                ]
-            },
-            {
-                number: 7,
-                width: 2354,
-                areas: [
-                    [1, 724],
-                    [725, 1450],
-                    [1451, 2172]
-                ]
-            }
-        ],
-        captions: [
-            ["image 19 — Afrique du Sud."],
-            ["image 27 — Union Buildings, Jardin Louis Botha, Pretoria, Afrique du Sud.", "image 27 — Pretoria, Afrique du Sud."],
-            ["image 28 — Voortrekker Monument, Pretoria, Afrique du Sud.", "image 28 — Pretoria, Afrique du Sud."],
-            ["image 33 — Afrique du Sud."],
-            ["image 34 — Afrique du Sud."],
-            ["image 35 — Afrique du Sud."],
-            ["image 36. détail — Afrique du Sud."],
-            ["image 37 — Afrique du Sud."],
-            ["image 38. détail — Afrique du Sud."]
-        ]
-    },
-    {
-        file: "14",
-        title: "johannesburg",
-        images: "39",
-        footer: [
-            {
-                items: 7,
-                height: 687,
-                maps: [1, 3, 4, 5, 6]
-            },
-            {
-                number: 1,
-                width: 4800,
-                areas: [
-                    [4069, 4800]
-                ]
-            },
-            {
-                number: 3,
-                width: 4322,
-                areas: [
-                    [1, 722],
-                    [2174, 2892]
-                ]
-            },
-            {
-                number: 4,
-                width: 4349,
-                areas: [
-                    [1, 726],
-                    [727, 1452]
-                ]
-            },
-            {
-                number: 5,
-                width: 4350,
-                areas: [
-                    [720, 1446]
-                ]
-            },
-            {
-                number: 6,
-                width: 4338,
-                areas: [
-                    [2170, 2893]
-                ]
-            }
-        ],
-        captions: [
-            ["image 05 — Afrique du Sud."],
-            ["image 12 — Anstey's Building, Johannesburg, Afrique du Sud.", "image 12 — Johannesburg, Afrique du Sud."],
-            ["image 15. détail — Anstey's Building, Johannesburg, Afrique du Sud.", "image 15. détail — Afrique du Sud."],
-            ["image 18."],
-            ["image 19 — Entebbe, Ouganda."],
-            ["image 25 — Aéroport, Khartoum, Soudan.", "image 25 — Khartoum, Soudan."],
-            ["image 33 — Sphinx de Gizeh, Gizeh, Egypte.", "image 33 — Gizeh, Egypte."]
-        ]
-    },
-    {
-        file: "15",
-        title: "le caire – malte – arrivée à luxembourg",
-        images: "37",
-        footer: [
-            {
-                items: 6,
-                height: 693,
-                maps: [1, 2, 3, 4, 5, 6]
-            },
-            {
-                number: 1,
-                width: 4345,
-                areas: [
-                    [733, 1455],
-                    [1456, 2181]
-                ]
-            },
-            {
-                number: 2,
-                width: 4354,
-                areas: [
-                    [1, 725]
-                ]
-            },
-            {
-                number: 3,
-                width: 4349,
-                areas: [
-                    [2177, 2901],
-                    [3629, 4349]
-                ]
-            },
-            {
-                number: 4,
-                width: 4358,
-                areas: [
-                    [2175, 2902]
-                ]
-            },
-            {
-                number: 5,
-                width: 4336,
-                areas: [
-                    [2173, 2891]
-                ]
-            },
-            {
-                number: 6,
-                width: 4353,
-                areas: [
-                    [1451, 2172],
-                    [3625, 4353]
-                ]
-            }
-        ],
-        captions: [
-            ["image 02 — Sphinx de Gizeh, Gizeh, Egypte.", "image 02 — Gizeh, Egypte."],
-            ["image 03 — Sphinx de Gizeh, Gizeh, Egypte.", "image 03 — Gizeh, Egypte."],
-            ["image 07 — Le Caire, Egypte."],
-            ["image 16 — La Valette, Malte."],
-            ["image 18 — Pjazza tas-Sur, Mdina, Malte.", "image 18 — Mdina, Malte."],
-            ["image 22."],
-            ["image 28."],
-            ["image 33."],
-            ["image 36."]
-        ]
-    },
-    {
-        file: "16",
-        title: "sibérie – japon – hakone",
-        images: "22",
-        footer: [
-            {
-                items: 4,
-                height: 685,
-                maps: [1, 2, 3, 4]
-            },
-            {
-                number: 1,
-                width: 4700,
-                areas: [
-                    [2521, 3248],
-                ]
-            },
-            {
-                number: 2,
-                width: 4350,
-                areas: [
-                    [1, 728],
-                    [729, 1459]
-                ]
-            },
-            {
-                number: 3,
-                width: 4354,
-                areas: [
-                    [729, 1451],
-                    [3631, 4354]
-                ]
-            },
-            {
-                number: 4,
-                width: 4362,
-                areas: [
-                    [721, 1449],
-                    [2170, 2894]
-                ]
-            }
-        ],
-        captions: [
-            ["image 02 — Sibérie, Russie."],
-            ["image 05 — Sibérie, Russie."],
-            ["image 06. détail — Sibérie, Russie."],
-            ["image 12."],
-            ["image 16 — Kamakura Daibutsu, Kōtoku-in, Kamakura, Japon.", "image 16 — Kamakura, Japon."],
-            ["image 18 — Kamakura, Japon."],
-            ["image 20. détail — Japon."]
-        ]
-    },
-    {
-        file: "17",
-        title: "kyoto – nara",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 691,
-                maps: [2, 3, 4, 6, 7]
-            },
-            {
-                number: 2,
-                width: 4345,
-                areas: [
-                    [1448, 2172]
-                ]
-            },
-            {
-                number: 3,
-                width: 4358,
-                areas: [
-                    [1452, 2180]
-                ]
-            },
-            {
-                number: 4,
-                width: 4358,
-                areas: [
-                    [1, 727],
-                    [3639, 4358]
-                ]
-            },
-            {
-                number: 6,
-                width: 4362,
-                areas: [
-                    [1453, 2181],
-                    [2907, 3634],
-                    [3635, 4362]
-                ]
-            },
-            {
-                number: 7,
-                width: 3675,
-                areas: [
-                    [1, 727]
-                ]
-            }
-        ],
-        captions: [
-            ["image 07 — Japon."],
-            ["image 13. détail — Japon."],
-            ["image 17 — Japon."],
-            ["image 22. détail — Kinkaku-ji, Kyoto, Japon.", "image 22. détail — Kyoto, Japon."],
-            ["image 31 — Heian-jingū, Kyoto, Japon.", "image 31 — Kyoto, Japon."],
-            ["image 33 — Japon."],
-            ["image 34. détail — Chū-mon, Tōdai-ji, Nara, Japon.", "image 34. détail — Nara, Japon."],
-            ["image 35 — Daibutsu-den, Tōdai-ji, Nara, Japon.", "image 35 — Nara, Japon."]
-        ]
-    },
-    {
-        file: "18",
-        title: "kyoto – nara – hiroshima",
-        images: "38",
-        footer: [
-            {
-                items: 7,
-                height: 692,
-                maps: [1, 2, 3, 4, 5, 6]
-            },
-            {
-                number: 1,
-                width: 4862,
-                areas: [
-                    [1980, 2699]
-                ]
-            },
-            {
-                number: 2,
-                width: 4341,
-                areas: [
-                    [725, 1451]
-                ]
-            },
-            {
-                number: 3,
-                width: 4346,
-                areas: [
-                    [720, 1443],
-                    [2892, 3621]
-                ]
-            },
-            {
-                number: 4,
-                width: 4358,
-                areas: [
-                    [1448, 2178],
-                    [2902, 3631],
-                    [3632, 4358 ]
-                ]
-            },
-            {
-                number: 5,
-                width: 4361,
-                areas: [
-                    [2187, 2918],
-                    [2919, 3640]
-                ]
-            },
-            {
-                number: 6,
-                width: 4375,
-                areas: [
-                    [727, 1459],
-                    [1460, 2193],
-                    [3651, 4375]
-                ]
-            }
-        ],
-        captions: [
-            ["image 01 — Nara, Japon."],
-            ["image 06 — Gojū-no-tō, Kōfuku-ji, Nara, Japon.", "image 06 — Nara, Japon."],
-            ["image 12 — Hyakutai Jizo-Do, Kiyomizu-dera, Kyoto, Japon.", "image 12 — Kyoto, Japon."],
-            ["image 15 — Komainu, Kiyomizu-dera, Kyoto, Japon.", "image 15 — Kyoto, Japon."],
-            ["image 19 — Japon."],
-            ["image 21 — Japon."],
-            ["image 22 — Japon."],
-            ["image 26 — Japon."],
-            ["image 27 — Dôme de Genbaku, Hiroshima, Japon.", "image 27 — Hiroshima, Japon."],
-            ["image 30 — Hiroshima, Japon."],
-            ["image 31 — Japon."],
-            ["image 34 — Itsukushima-jinja, Miyajima, Japon.", "image 34 — Miyajima, Japon."]
-        ]
-    },
-    {
-        file: "19",
-        title: "takamatsu",
-        images: "22",
-        footer: [
-            {
-                items: 4,
-                height: 686,
-                maps: [1, 2, 3, 4]
-            },
-            {
-                number: 1,
-                width: 4403,
-                areas: [
-                    [100, 780],
-                    [2224, 2953],
-                    [2954, 3680],
-                    [3681, 4403]
-                ]
-            },
-            {
-                number: 2,
-                width: 4349,
-                areas: [
-                    [1, 723]
-                ]
-            },
-            {
-                number: 3,
-                width: 4356,
-                areas: [
-                    [1453, 2184],
-                    [2185, 2912]
-                ]
-            },
-            {
-                number: 4,
-                width: 3361,
-                areas: [
-                    [1, 731],
-                    [2184, 2907]
-                ]
-            }
-        ],
-        captions: [
-            ["image 01 — Japon."],
-            ["image 04 — Japon."],
-            ["image 05 — Japon."],
-            ["image 06 — Japon."],
-            ["image 07 — Japon."],
-            ["image 15 — Japon."],
-            ["image 16 — Japon."],
-            ["image 19 — Japon."],
-            ["image 22 — Chutes de Kegon, Parc national de Nikkō, Japon.", "image 22 — Parc national de Nikkō, Japon."]
-        ]
-    },
-    {
-        file: "20",
-        title: "nikko – départ",
-        images: "22",
-        footer: [
-            {
-                items: 4,
-                height: 686,
-                maps: [3, 4]
-            },
-            {
-                number: 3,
-                width: 4341,
-                areas: [
-                    [1443, 2170],
-                    [2897, 3622],
-                    [3623, 4341]
-                ]
-            },
-            {
-                number: 4,
-                width: 4362,
-                areas: [
-                    [1, 716],
-                    [1442, 2163],
-                    [2885, 3607],
-                    [3608, 4333]
-                ]
-            }
-        ],
-        captions: [
-            ["image 13 — Japon."],
-            ["image 15 — Japon."],
-            ["image 16. détail — Japon."],
-            ["image 17 — Japon."],
-            ["image 19 — Japon."],
-            ["image 21. détail — Japon."],
-            ["image 22."]
-        ]
-    },
-    {
-        file: "21",
-        title: "khabarovsk – moscou – berlin",
-        images: "28",
-        footer: [
-            {
-                items: 7,
-                height: 690,
-                maps: [2, 3, 4, 5, 7]
-            },
-            {
-                number: 2,
-                width: 4348,
-                areas: [
-                    [1449, 2178],
-                    [2179, 2904],
-                    [2905, 3625]
-                ]
-            },
-            {
-                number: 3,
-                width: 4354,
-                areas: [
-                    [1, 726],
-                    [727, 1446],
-                    [2186, 2905],
-                    [2906, 3628],
-                    [3629, 4354]
-                ]
-            },
-            {
-                number: 4,
-                width: 4341,
-                areas: [
-                    [1, 723],
-                    [2173, 2898],
-                    [2899, 3621]
-                ]
-            },
-            {
-                number: 5,
-                width: 4345,
-                areas: [
-                    [3623, 4345]
-                ]
-            },
-            {
-                number: 7,
-                width: 3973,
-                areas: [
-                    [725, 1449],
-                    [1450, 2172]
-                ]
-            }
-        ],
-        captions: [
-            ["image 06 — Russie."],
-            ["image 07 — Russie."],
-            ["image 08 — Muravyov Amursky Park, Khabarovsk, Russie.", "image 08 — Khabarovsk, Russie."],
-            ["image 10 — Khabarovsk, Russie."],
-            ["image 11. détail — Khabarovsk, Russie."],
-            ["image 13 — Ivanovskaya Square, Kremlin, Moscou, Russie.", "image 13 — Moscou, Russie."],
-            ["image 14 — Cathédrale de la Dormition, Kremlin, Moscou, Russie.", "image 14 — Moscou, Russie."],
-            ["image 15 — Tsar Pouchka, Kremlin, Moscou, Russie.", "image 15 — Moscou, Russie."],
-            ["image 16 — Russie."],
-            ["image 19 — Place du Manège, Moscou, Russie.", "image 19 — Moscou, Russie."],
-            ["image 20 — Église de l'Ascension, Kolomenskoye, Moscou, Russie.", "image 20 — Moscou, Russie."],
-            ["image 27 — Church of the Kazan Icon of the Mother of God, Kolomenskoye, Moscou, Russie.", "image 27 — Moscou, Russie."],
-            ["image 35 — Konzerthaus, Gendarmenmark, Berlin, Allemagne.", "image 35 — Berlin, Allemagne."],
-            ["image 36 — Französischer Dom, Gendarmenmark, Berlin, Allemagne.", "image 36 — Berlin, Allemagne."]
-        ]
-    }
-];
-
-let projectFile = projectData[0].file;
-let footerImageInfo = projectData[0].footer;
-let imageCaptions = projectData[0].captions;
-
-projectFour(projectFile, footerImageInfo, imageCaptions);
-
-function pageReset(selector, i) {
-    for (let j = 1; j < projectData.length + 1; j++) {
-        document.querySelector(selector + j).classList.add("content--scan__nav__on");
-    }
-    document.querySelector(selector + (i + 1)).classList.remove("content--scan__nav__on");
-    document.querySelector(".content--scan__footer").innerHTML = "";
-    document.querySelector(".content--scan__image").src = "";
-
-    document.querySelector(".content--scan__caption--folder").textContent = projectData[i].title;
-    document.querySelector(".content--scan__caption--current").textContent = projectData[i].images + " images.";
-
-    let projectFile = projectData[i].file;
-    let footerImageInfo = projectData[i].footer;
-    let imageCaptions = projectData[i].captions;
-
-    projectFour(projectFile, footerImageInfo, imageCaptions);
-}
-
-const desktopNavSelector = ".content--scan__nav--";
-const mobileNavSelector = ".content--scan__nav--mobile--";
-
-for (let i = 0; i < projectData.length; i++) {
-    document.querySelector(desktopNavSelector + (i + 1)).addEventListener("click", function(e) {
-        e.preventDefault();
-
-        pageReset(desktopNavSelector, i);
-    });
-
-    if (page === "projet-4.html") {
-        document.querySelector(mobileNavSelector + (i + 1)).addEventListener("click", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-    
-            pageReset(mobileNavSelector, i);
-        });
-    }
-}
-
-function altNav() {
-    const altMobileNav = [
-        "milan",
-        "naples",
+    /*     const projectFiles = [
+        "1957  - bretagne - départ italie",
+        "milan - florence",
+        "naples - capri - paestum",
         "kraemer",
         "sur le bateau",
         "le cap",
-        "port elizabeth",
-        "east london",
-        "durban",
-        "ngomas danses",
+        "port elizabeth - east london",
+        "east london - durban - port - cannes à sucre",
+        "durban - marche indigène - le port - mariage hindou - les 1000 collines - zoulous",
+        "ngomas danses - durban - en route pour les drakensberg",
         "drakensberg",
-        "sur la route",
-        "kruger park",
-        "johannesburg",
-        "le caire",
-        "sibérie",
-        "kyoto",
-        "hiroshima",
+        "sur la route du kruger park",
+        "kruger park - retour - danses des mines",
+        "johannesburg - location - ecole - entebbe - khartoum - le caire",
+        "le caire - malte - arrivée à luxembourg",
+        "sibérie - japon - hakone",
+        "kyoto - nara",
+        "kyoto - nara - hiroshima",
         "takamatsu",
-        "nikko",
-        "berlin"
-    ];
+        "nikko - départ",
+        "khabarovsk - moscou - berlin",
+    ]; */
 
-    if (page === "projet-4-2.html") {
-        let i = 1;
+    for (let i = 0; i < picturesData.length; i++) {
+        for (const item of picturesData[i]) {
+            if (item.hasOwnProperty("pictures")) {
+                const thumbnailBox = document.createElement("div");
+                const thumbnailCaption = document.createElement("div");
+                const captionNumber = document.createElement("p");
+                const thumbnailImg = document.createElement("img");
+                const imgId = `${i + 1}-${item.number}`;
 
-        document.querySelector(".content--scan__nav--mobile").addEventListener("click", function() {
-            if (i < 20) {
-                document.querySelector(".content--scan__nav--mobile").innerHTML = "next is " + altMobileNav[i] + ".";
-            } else if (i === 20) {
-                document.querySelector(".content--scan__nav--mobile").innerHTML = "back to bretagne.";
+                thumbnailBox.classList.add("thumbnail");
+
+                (function setCaption() {
+                    thumbnailCaption.classList.add("thumbnail__caption");
+
+                    captionNumber.textContent = item.number;
+                    thumbnailCaption.appendChild(captionNumber);
+
+                    if (item.title !== "") {
+                        const captionTitle = document.createElement("div");
+
+                        for (const element of item.title) {
+                            const titleElement = document.createElement("p");
+
+                            titleElement.textContent = element;
+                            captionTitle.appendChild(titleElement);
+                        }
+
+                        captionTitle.classList.add(
+                            "thumbnail__caption__title",
+                            `thumbnail__caption__title--${imgId}`
+                        );
+                        thumbnailCaption.appendChild(captionTitle);
+                    }
+                })();
+
+                (function createThumbnail() {
+                    thumbnailImg.setAttribute("loading", "lazy");
+                    thumbnailImg.src = `./img/projet-4/thumbnails/${imgId}.jpg`;
+                    thumbnailImg.classList.add(imgId);
+                })();
+
+                thumbnailImg.addEventListener("click", () => {
+                    const fullPicture = document.querySelector(".picture");
+                    const property = innerWidth;
+                    const breakpoints = [1366, 1920];
+
+                    responsiveLoading(
+                        fullPicture,
+                        projectData.id,
+                        imgId,
+                        property,
+                        breakpoints
+                    );
+                });
+
+                thumbnailBox.appendChild(thumbnailCaption);
+                thumbnailBox.appendChild(thumbnailImg);
+                document
+                    .querySelector(".container--thumbnails")
+                    .appendChild(thumbnailBox);
             }
-            document.querySelector(".content--scan__footer").innerHTML = "";
-            document.querySelector(".content--scan__image").src = "";
-
-            document.querySelector(".content--scan__caption--folder").textContent = projectData[i].title;
-            document.querySelector(".content--scan__caption--current").textContent = projectData[i].images + " images.";
-
-            let projectFile = projectData[i].file;
-            let footerImageInfo = projectData[i].footer;
-            let imageCaptions = projectData[i].captions;
-
-            projectFour(projectFile, footerImageInfo, imageCaptions);
-
-            if (i < 20) {
-                i++;
-            } else if (i === 20) {
-                i = 0;
-            }
-        });
+        }
     }
 }
 
-altNav();
+(function projectFour() {
+    createContent();
+    createSpreads(projectData);
+})();

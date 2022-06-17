@@ -1,8 +1,68 @@
 .content {
-    &--paris {
+    &--projet-1 {
         cursor: move;
         img {
             height: 233vh;
         }
     }
+}
+
+.info {
+    &__background {
+        @include blue-layer;
+        grid-template-columns: 1fr 1fr;
+        overflow-y: hidden;
+        @include white-left-arrow;
+        &--on {
+            display: grid;
+        }
+    }
+    &__container {
+        box-sizing: border-box;
+        overflow-y: auto;
+        height: 100vh;
+        padding-top: 6vh;
+        padding-bottom: 6vh;
+        &--projet-1 {    
+            padding: 5px;  
+            font-size: min(1.35vw, 24px);
+            font-weight: 300;
+            text-transform: uppercase;
+            li {
+                position: relative;
+                z-index: 5; 
+                width: fit-content;
+                color: rgba(255, 255, 255, 0.9);
+                break-inside: avoid;
+                cursor: pointer;
+                &::after {
+                    content: "";
+                    display: block;
+                    position: relative;
+                    top: -4px;
+                    width: calc(50vw - 7px);
+                    height: 0.5px;
+                    margin-left: 2px;
+                    background-color: transparent;    
+                }
+                &:hover::after {
+                    content: "";
+                    display: block;
+                    position: relative;
+                    top: -4px;
+                    width: calc(50vw - 7px);
+                    height: 0.5px;
+                    margin-left: 2px;
+                    background-color: white;
+                }
+            }
+        }
+    }
+}
+
+iframe {
+    width: 40vw;
+    height: 30vw;
+    margin: auto;
+    background-color: white;
 }

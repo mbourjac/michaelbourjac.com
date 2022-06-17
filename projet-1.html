@@ -9,52 +9,53 @@
         <script src="/js/projet-1.js" type="module" defer></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10,200;-10,300;-10,400;0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-DEN3T9DDF7"></script>
         <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-DEN3T9DDF7');
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DEN3T9DDF7');
         </script>
     </head>
     <body>
         <div class="root">
-
-            <header class="header">
-                <h1 class="header__heading"><a href="./index.html">michaël bourjac</a></h1>               
-
-                <nav class="nav">
-                    <ul class="nav__current">
-                        <li>projet-1</li>
-                        <li>&mdash;</li>
-                        <li class="nav__extra" lang="en"><a href="./projet-1-random.html">random</a></li>
-                        <li class="nav__extra" lang="en"><a href="./projet-1-info.html">info</a></li>
-                        <li class="nav__next"><a href="./projet-2.html">projet-2</a></li>
-                        <li lang="en"><a href="https://www.instagram.com/michaelbourjac/" target="_blank" rel="noopener noreferrer">more</a></li>
-                    </ul>
-                    <ul class="nav__global">
-                        <li class="nav__global__section nav__global__section--projects nav__global__section--hidden" lang="en">projects</li>
-                        <li id="nav-1"><a href="./projet-2.html">projet-2</a></li>
-                        <li id="nav-2"><a href="./projet-3.html">projet-3</a></li>
-                        <li id="nav-3"><a href="./projet-4.html">projet-4</a></li>
-                        <li>&#183</li>
-                        <li class="nav__global__section nav__global__section--layouts" lang="en">layouts</li>
-                        <li id="layout-1" class="nav__global__section--hidden">layout-1</li>
-                        <li id="layout-2" class="nav__global__section--hidden"><a href="./projet-1-2.html">layout-2</a></li>
-                    </ul>
+            <div class="fixed">
+                <header class="header header--fixed">
+                    <h1 class="header__heading">michaël bourjac</h1>     
+                </header>          
+                <nav class="nav"> 
+                    <ol>
+                        <li><a href="./index.html">index</a></li>
+                        <li><a href="mailto:michael.bourjac@gmail.com">contact</a></li>
+                        <li><a href="https://github.com/mbourjac/" target="_blank" rel="noopener noreferrer">github</a></li>
+                        <li><a href="https://www.instagram.com/michaelbourjac/" target="_blank" rel="noopener noreferrer">instagram</a></li>
+                    </ol>
+                    <h2 class="nav__title nav__current">projet-1, paris, 2015 —</h2>
+                    <ol>
+                        <li class="nav__spreads nav__event">spreads</li>
+                        <li class="nav__info nav__event">info</li>
+                        <li class="nav__random nav__event">random</li>
+                        <li><a href="./projet-2.html">next</a></li>
+                    </ol>
                 </nav>
-            </header>
-
-
-            <div class="content content--paris" onContextMenu="return false;">
             </div>
-
+            <div class="content--scroll content--projet-1">
+            </div>
             <div>
                 <ol class="content__nav"></ol>
             </div>
- 
+            <div class="spreads__background spreads__background--1">
+                <div class="spreads__container spreads__container--1"></div>
+            </div>
+            <div class="info">
+                <div class="info__background">
+                    <iframe src="" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="info__container">
+                        <ol class="info__container--projet-1"></ol>
+                    </div>
+                </div>   
+            </div>
         </div>
     </body>
 </html>

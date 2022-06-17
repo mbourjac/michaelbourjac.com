@@ -1,17 +1,22 @@
-export function contentLayout(file, array, selector) {
-    for (let item of array) {
+import { responsiveLoading } from "./responsive-loading.js";
+
+export function contentLayout(file, numberOfItems, selector) {
+    const contentItems = [];
+
+    for (let i = 1; i < numberOfItems + 1; i++) {
+        contentItems.push(i);
+    }
+
+    for (const item of contentItems) {
         const img = document.createElement("img");
-        if (innerHeight < 500) {
-            img.src = `/img/${file}/small/${item}.jpg`;
-        } else if (innerHeight < 900) {
-            img.src = `/img/${file}/medium/${item}.jpg`;
-        } else {
-            img.src = `/img/${file}/${item}.jpg`;
-        }
+
         img.id = `${file}-${item}`;
+
         if (item !== 1) {
             img.setAttribute("loading", "lazy");
         }
+
+        responsiveLoading(img, file, item);
         selector.appendChild(img);
     }
 }

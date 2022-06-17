@@ -1,5 +1,8 @@
 .content {
-    &--sud {
+    &--projet-2 {
+        display: flex;
+        overflow-x: auto;
+        margin-top: 0px;
         img {
             height: 100vh;
             &:first-child {

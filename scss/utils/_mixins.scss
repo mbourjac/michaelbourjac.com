@@ -1,0 +1,53 @@
+@mixin blue-left-arrow {
+    cursor: url(icons/blue-left-arrow.png) 0 22.5, auto;
+}
+
+@mixin white-left-arrow {
+    cursor: url(icons/white-left-arrow.png) 0 22.5, auto;
+}
+
+@mixin blue-right-arrow {
+    cursor: url(icons/blue-right-arrow.png) 55 22.5, auto;
+}
+
+@mixin blue-left-arrow-head {
+    cursor: url(icons/blue-left-arrow-head.png) 0 22.5, auto;
+}
+
+@mixin blue-right-arrow-head {
+    cursor: url(icons/blue-right-arrow-head.png) 30.5 22.5, auto;
+}
+
+@mixin black-plus {
+    cursor: url(icons/black-plus.png), auto;
+}
+
+@mixin white-plus {
+    cursor: url(icons/white-plus.png), auto;
+}
+
+@mixin black-minus {
+    cursor: url(icons/black-minus.png) 0 22.5, auto;
+}
+
+@mixin preview-grid-template($min) {
+    grid-template-columns: repeat(auto-fill, minmax($min, 1fr));
+}
+
+@mixin blue-layer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100vw;
+    height: 100vh;
+    background-color: $color-background;
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

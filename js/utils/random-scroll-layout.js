@@ -1,19 +1,26 @@
-export function randomContentLayout(file, id, array, selector) {
-    let i = 1;
-    for (let item of array) {
+import { responsiveLoading } from "./responsive-loading.js";
+
+export function randomContentLayout(file, numberOfItems, selector) {
+    const contentItems = [];
+    let index = 1;
+
+    for (let i = 1; i < numberOfItems + 1; i++) {
+        contentItems.push(i);
+    }
+
+    contentItems.sort(() => Math.random() - 0.5);
+
+    for (const item of contentItems) {
         const img = document.createElement("img");
-        if (innerHeight < 500) {
-            img.src = `/img/${file}/small/${item}.jpg`;
-        } else if (innerHeight < 900) {
-            img.src = `/img/${file}/medium/${item}.jpg`;
-        } else {
-            img.src = `/img/${file}/${item}.jpg`;
-        }
-        img.id = `${id}-${i}`;
-        if (i !== 1) {
+
+        img.id = `${file}-${index}`;
+
+        if (index !== 1) {
             img.setAttribute("loading", "lazy");
         }
-        i++;
+
+        responsiveLoading(img, file, item);
         selector.appendChild(img);
+        index++;
     }
 }

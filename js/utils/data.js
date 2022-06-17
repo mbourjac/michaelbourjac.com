@@ -1,0 +1,42 @@
+export const projectsData = [
+    {
+        number: "4",
+        id: "projet-4",
+        title: "scan",
+        pictures: 192,
+        indexThumbnails: 192,
+        layoutSpreads: 88,
+        projectItems: 190,
+        altIcon: [
+            1, 4, 8, 12, 17, 22, 27, 31, 35, 39, 44, 47, 51, 55, 59, 63, 67, 71,
+            76, 80, 83,
+        ],
+    },
+    {
+        number: "3",
+        id: "projet-3",
+        title: "japon",
+        pictures: 287,
+        indexThumbnails: 276,
+        layoutSpreads: 187,
+        projectItems: 274,
+    },
+    {
+        number: "2",
+        id: "projet-2",
+        title: "sud",
+        pictures: 106,
+        indexThumbnails: 88,
+        layoutSpreads: 55,
+        projectItems: 101,
+    },
+    {
+        number: "1",
+        id: "projet-1",
+        title: "paris",
+        pictures: 123,
+        indexThumbnails: 123,
+        layoutSpreads: 50,
+        projectItems: 104,
+    },
+];

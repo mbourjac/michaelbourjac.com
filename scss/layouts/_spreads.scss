@@ -1,0 +1,41 @@
+.spreads {
+    &__background {
+        @include blue-layer;
+        &--on {
+            display: block;
+        }
+    }
+    &__container {
+        box-sizing: border-box;
+        overflow-y: auto;
+        height: 100vh;
+        padding-top: 6vh;
+        padding-left: 30vw;  
+        padding-right: 5vw; 
+        @include white-left-arrow;
+        @media only screen and (hover: none) and (pointer: coarse) and (max-width: 1025px) {
+            padding-left: 2.5vw;
+            padding-right: 2.5vw; 
+        }
+        a {
+            @media only screen and (hover: none) and (pointer: coarse){
+                pointer-events: none;   
+            }
+        }
+    }
+    &__image {
+        width: 65vw;
+        margin-bottom: 5vh;
+        @include black-plus;
+        &--small {
+            width: 155px;
+            cursor: default;
+        }
+        &--dark {
+            @include white-plus;
+        }
+        @media only screen and (hover: none) and (pointer: coarse) and (max-width: 1025px) {
+            width: 95vw;
+        }
+    }
+}
